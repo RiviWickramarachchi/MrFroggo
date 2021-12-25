@@ -26,15 +26,19 @@ public class FrogActions : MonoBehaviour
             if (touch.phase == TouchPhase.Began)
             {
                 float tongueZRot = UnityEditor.TransformUtils.GetInspectorRotation(frogPupilObj.transform).z;
-                print(tongueZRot);
+                //print("Set tongue value =" +tongueZRot);
                 tongueObj.transform.Rotate(0f, 0f,tongueZRot);
+                anim.SetFloat("EyeSpeed", 0f);
                 anim.SetBool("TongueOut", true);
 
             }
             if (touch.phase == TouchPhase.Ended)
             {
+                
+                StartCoroutine(waitForAnimFinish(0.8f)); //have to get the proper animation length
                 anim.SetBool("TongueOut", false);
-                tongueObj.transform.Rotate(0f, 0f, 0f);
+                
+
 
 
             }
@@ -42,4 +46,18 @@ public class FrogActions : MonoBehaviour
 
         }
     }
+
+    IEnumerator waitForAnimFinish(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime); 
+        tongueObj.transform.rotation = Quaternion.Euler(Vector3.forward * 0);
+        //print("Reset tongue rot value =" + UnityEditor.TransformUtils.GetInspectorRotation(tongueObj.transform).z);
+        anim.SetFloat("EyeSpeed", 1f);
+
+
+
+
+    }
+
+    
 }
