@@ -6,8 +6,11 @@ public class FrogMovement : MonoBehaviour
 {
 
     Rigidbody2D rb;
-    float xDir;
-    [SerializeField] float moveSpeed = 5f;
+    private float xDir;
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private ParticleSystemRenderer psr;
+
+    
 
    
 
@@ -17,6 +20,7 @@ public class FrogMovement : MonoBehaviour
        
         
         rb = GetComponent<Rigidbody2D>();
+       
         
     }
 
@@ -25,6 +29,23 @@ public class FrogMovement : MonoBehaviour
     {
         xDir = Input.acceleration.x * moveSpeed;
         transform.position = new Vector2(Mathf.Clamp(transform.position.x,-32.8f,35.7f), transform.position.y);
+        if((xDir >= -3f) && (xDir <= 3f))
+        {
+            psr.pivot = new Vector3(0f, 0f, 0f);
+        }
+       
+        if(xDir < -3f)
+        {
+            psr.pivot = new Vector3(0.3f, 0f, 0f);
+        }
+        
+        if (xDir > 3f)
+        {
+            psr.pivot = new Vector3(-0.3f, 0f, 0f);
+        }
+
+
+
     }
 
     private void FixedUpdate()
