@@ -5,6 +5,8 @@ using UnityEditor;
 
 public class FrogActions : MonoBehaviour
 {
+    //Controls the frog tongue animations
+
     [SerializeField] private GameObject frogPupilObj;
     [SerializeField] private GameObject tongueObj;
 

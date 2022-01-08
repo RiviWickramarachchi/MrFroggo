@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class FlyMovements : MonoBehaviour
 {
+
+    //Controls the movement of the fly and collisions with the frog tongue
+
     [SerializeField] private float moveLimit = 5.0f;
     [SerializeField] private float speed;
     [SerializeField] private bool movingLeft;
     private float moveDistance;
     private Vector3 lastPosition;
    
-    // Start is called before the first frame update
     void Start()
     {
         

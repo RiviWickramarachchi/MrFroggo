@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FrogMovement : MonoBehaviour
 {
+    //Controls the movements of the frog
 
     Rigidbody2D rb;
     private float xDir;
