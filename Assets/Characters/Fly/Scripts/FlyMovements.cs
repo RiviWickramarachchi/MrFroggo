@@ -7,24 +7,22 @@ public class FlyMovements : MonoBehaviour
 
     //Controls the movement of the fly and collisions with the frog tongue
 
-    [SerializeField] private float moveLimit = 5.0f;
+    //[SerializeField] private float moveLimit = 5.0f;
     [SerializeField] private float speed;
-    [SerializeField] private bool movingLeft;
-    private float moveDistance;
-    private Vector3 lastPosition;
+    private List<Vector3> positions = new List<Vector3>();
+    private int index;
    
     void Start()
     {
-        
-        moveDistance = 0;
-        lastPosition = transform.position;
+
+        addPositions();
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        moveFly(moveLimit);
+        moveFly();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -37,43 +35,38 @@ public class FlyMovements : MonoBehaviour
         }
     }
 
-    private void moveFly(float moveLimit)
+    private void moveFly()
     {
-        if(movingLeft)
+        transform.position = Vector2.MoveTowards(transform.position, positions[index], Time.deltaTime * speed);
+
+        if(transform.position == positions[index])
         {
-            moveLeft();
-            if(moveDistance >moveLimit)
+            if(index == positions.Count - 1)
             {
-                movingLeft = false;
-                moveDistance = 0;
+                index = 0;
+                //index--;
             }
-            
-        }
-        else
-        {
-            moveRight();
-            if(moveDistance > moveLimit)
+           
+            else
             {
-                movingLeft = true;
-                moveDistance = 0;
+                index++;
             }
         }
     }
 
-    private void moveLeft()
+    private void addPositions()
     {
-        transform.Translate(1 * Time.deltaTime * speed, 0, 0);
-        transform.localScale = new Vector2(-1, 1);
-        moveDistance += Vector3.Distance(transform.position, lastPosition);
-        lastPosition = transform.position;
-
+        Vector3 pos1 = transform.position;
+        Vector3 pos2 = new Vector3(transform.position.x - 5.0f, transform.position.y, transform.position.z);
+        Vector3 pos3 = new Vector3(transform.position.x - 5.0f, transform.position.y - 0.65f, transform.position.z);
+        Vector3 pos4 = new Vector3(transform.position.x, transform.position.y - 0.65f, transform.position.z);
+        positions.Add(pos1);
+        positions.Add(pos2);
+        positions.Add(pos3);
+        positions.Add(pos4);
     }
 
-    private void moveRight()
-    {
-        transform.Translate(-1 * Time.deltaTime * speed, 0, 0);
-        transform.localScale = new Vector2(1, 1);
-        moveDistance += Vector3.Distance(transform.position, lastPosition);
-        lastPosition = transform.position;
-    }
+
+
+    
 }
