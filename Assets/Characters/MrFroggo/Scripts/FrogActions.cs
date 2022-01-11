@@ -7,7 +7,7 @@ public class FrogActions : MonoBehaviour
 {
     //Controls the frog tongue animations
 
-    [SerializeField] private GameObject frogPupilObj;
+    //[SerializeField] private GameObject frogPupilObj;
     [SerializeField] private GameObject tongueObj;
 
     private Animator anim;
@@ -36,45 +36,45 @@ public class FrogActions : MonoBehaviour
                 Sprite sprite = sr.sprite;
                 //print(sprite.name);
                 string animSprite = sprite.name;
-                anim.SetBool("tongueOut", true);
+                //anim.SetBool("tongueOut", true);
 
                 switch(animSprite)
                 {
                     case "idle_1":
-                        anim.SetInteger("tongueVal", 1);
+                        anim.Play("froggo_tongue1");
                         break;
                     case "idle_2":
-                        anim.SetInteger("tongueVal", 2);
+                        anim.Play("froggo_tongue2");
                         break;
                     case "idle_3":
-                        anim.SetInteger("tongueVal", 3);
+                        anim.Play("froggo_tongue3");
                         break;
                     case "idle_4":
-                        anim.SetInteger("tongueVal", 4);
+                        anim.Play("froggo_tongue4");
                         break;
                     case "idle_5":
-                        anim.SetInteger("tongueVal", 5);
+                        anim.Play("froggo_tongue5");
                         break;
                     case "idle_6":
-                        anim.SetInteger("tongueVal", 6);
+                        anim.Play("froggo_tongue6");
                         break;
                     case "idle_7":
-                        anim.SetInteger("tongueVal", 7);
+                        anim.Play("froggo_tongue7");
                         break;
                     case "idle_8":
-                        anim.SetInteger("tongueVal", 8);
+                        anim.Play("froggo_tongue8");
                         break;
                     case "idle_9":
-                        anim.SetInteger("tongueVal", 9);
+                        anim.Play("froggo_tongue9");
                         break;
                     case "idle_10":
-                        anim.SetInteger("tongueVal", 10);
+                        anim.Play("froggo_tongue10");
                         break;
                     case "idle_11":
-                        anim.SetInteger("tongueVal", 11);
+                        anim.Play("froggo_tongue11");
                         break;
                     case "idle_12":
-                        anim.SetInteger("tongueVal", 12);
+                        anim.Play("froggo_tongue12");
                         break;
                     default:
                         break;
@@ -88,13 +88,8 @@ public class FrogActions : MonoBehaviour
             {
                 
                 StartCoroutine(waitForAnimFinish(0.8f)); //have to get the proper animation length
-                anim.SetBool("tongueOut", false);
-                
-
-
-
+                //anim.SetBool("tongueOut", false);
             }
-
 
         }
     }
@@ -104,13 +99,7 @@ public class FrogActions : MonoBehaviour
         yield return new WaitForSeconds(waitTime); 
         tongueObj.transform.rotation = Quaternion.Euler(Vector3.forward * 0);
         //print("Reset tongue rot value =" + UnityEditor.TransformUtils.GetInspectorRotation(tongueObj.transform).z);
-        anim.SetInteger("tongueVal", 0);
+        //anim.SetInteger("tongueVal", 0);
         anim.SetFloat("idleSpeed", 1f);
-
-
-
-
-    }
-
-    
+    }   
 }

@@ -9,6 +9,7 @@ public class TimerBar : MonoBehaviour
     [SerializeField]private Gradient gradient;
     [SerializeField] private Slider timeBar;
     [SerializeField] private Image fillImg;
+    [SerializeField] private Animator tbAnim;
     
 
     public float getTimeVal()
@@ -24,6 +25,20 @@ public class TimerBar : MonoBehaviour
     public void setMaxTime(float time)
     {
         timeBar.maxValue = time;
+    }
+
+    public void setAnimations(string s)
+    {
+        if(s =="boost")
+        {
+            tbAnim.Play("timerBoost");
+        }
+        if(s =="warning")
+        {
+            tbAnim.Play("warning");
+        }
+        
+        
     }
 
 }
