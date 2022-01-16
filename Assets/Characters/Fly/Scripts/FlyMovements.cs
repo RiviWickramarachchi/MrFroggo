@@ -9,9 +9,9 @@ public class FlyMovements : MonoBehaviour
 
     //[SerializeField] private float moveLimit = 5.0f;
     [SerializeField] private float speed;
-    private List<Vector3> positions = new List<Vector3>();
+    protected List<Vector3> positions = new List<Vector3>();
     private int index;
-   
+    private bool isGoingback;
     void Start()
     {
 
@@ -35,7 +35,7 @@ public class FlyMovements : MonoBehaviour
         }
     }
 
-    private void moveFly()
+    protected virtual void moveFly()
     {
         transform.position = Vector2.MoveTowards(transform.position, positions[index], Time.deltaTime * speed);
 
@@ -43,10 +43,21 @@ public class FlyMovements : MonoBehaviour
         {
             if(index == positions.Count - 1)
             {
-                index = 0;
-                //index--;
+                //index = 0;
+                isGoingback = true;
+                transform.localScale = new Vector2(-0.5f, transform.localScale.y);
             }
-           
+            else if(index == 0)
+            {
+                //index++; //goingback is false
+                isGoingback = false;
+                transform.localScale = new Vector2(0.5f, transform.localScale.y);
+            }
+
+            if(isGoingback)
+            {
+                index--;
+            }
             else
             {
                 index++;
@@ -54,16 +65,18 @@ public class FlyMovements : MonoBehaviour
         }
     }
 
-    private void addPositions()
+    protected virtual void addPositions()
     {
         Vector3 pos1 = transform.position;
-        Vector3 pos2 = new Vector3(transform.position.x - 5.0f, transform.position.y, transform.position.z);
-        Vector3 pos3 = new Vector3(transform.position.x - 5.0f, transform.position.y - 0.65f, transform.position.z);
-        Vector3 pos4 = new Vector3(transform.position.x, transform.position.y - 0.65f, transform.position.z);
+        Vector3 pos2 = new Vector3(transform.position.x - 3.0f, transform.position.y, transform.position.z);
+        Vector3 pos3 = new Vector3(transform.position.x - 3.0f, transform.position.y - 0.65f, transform.position.z);
+        Vector3 pos4 = new Vector3(transform.position.x - 5.0f, transform.position.y, transform.position.z);
+        Vector3 pos5 = new Vector3(transform.position.x - 7.0f, transform.position.y, transform.position.z);
         positions.Add(pos1);
         positions.Add(pos2);
         positions.Add(pos3);
         positions.Add(pos4);
+        positions.Add(pos5);
     }
 
 

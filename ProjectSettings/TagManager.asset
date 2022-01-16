@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TongueCol
   - Fly
+  - FireBug
   layers:
   - Default
   - TransparentFX

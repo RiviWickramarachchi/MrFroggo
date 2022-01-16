@@ -8,6 +8,7 @@ public class FroggoPlayer : MonoBehaviour
     [SerializeField] private int maxTime = 60;
     [SerializeField] private float currentTimeVal;
     [SerializeField] private TimerBar tb;
+    private int flyCount;
     
 
     // Start is called before the first frame update
@@ -15,6 +16,7 @@ public class FroggoPlayer : MonoBehaviour
     {
         
         tb.setTime(currentTimeVal);
+        flyCount = BugGenerator.Instance.FlyCount;
     }
 
     // Update is called once per frame
@@ -29,10 +31,6 @@ public class FroggoPlayer : MonoBehaviour
         currentTimeVal -= 1 * Time.deltaTime;
         tb.setTime(currentTimeVal);
 
-        if(currentTimeVal > 60)
-        {
-            //Win screen and continue to next level
-        }
         if(tb.getTimeVal() == 0)
         {
             //Transition to game over screen
@@ -74,8 +72,17 @@ public class FroggoPlayer : MonoBehaviour
             print("Hit = Fly");
             currentTimeVal += 15.0f;
             tb.setAnimations("boost");
-            //tb.boostTime("Fly",currentTimeVal);
-            //relevant frog/ timebar and fly animations 
+            flyCount--;
+            if(flyCount == 0)
+            {
+                //Level Complete Message !!!
+            }
+        }
+
+        if(collision.tag == "FireBug")
+        {
+            print("FireBugTongueTriggered");
+            print(collision.gameObject.GetComponent<FireBug>().Timer);
         }
     }
 }
