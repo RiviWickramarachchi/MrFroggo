@@ -8,13 +8,15 @@ public class FroggoPlayer : MonoBehaviour
     [SerializeField] private int maxTime = 60;
     [SerializeField] private float currentTimeVal;
     [SerializeField] private TimerBar tb;
+    private Animator anim;
     private int flyCount;
     
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
+        anim = GetComponent<Animator>();
         tb.setTime(currentTimeVal);
         flyCount = BugGenerator.Instance.FlyCount;
     }
@@ -83,6 +85,10 @@ public class FroggoPlayer : MonoBehaviour
         {
             print("FireBugTongueTriggered");
             print(collision.gameObject.GetComponent<FireBug>().Timer);
+            if(collision.gameObject.GetComponent<FireBug>().Timer < collision.gameObject.GetComponent<FireBug>().ColorTime)
+            {
+                anim.Play("froggo_stun");      
+            }      
         }
     }
 }

@@ -14,6 +14,7 @@ public class FireBug : FlyMovements
 
     
     public float Timer { get => timer;  }
+    public float ColorTime { get => colorTime; }
 
     private void Awake()
     {
