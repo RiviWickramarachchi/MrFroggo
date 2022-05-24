@@ -8,7 +8,12 @@ public class FlyMovements : MonoBehaviour
     //Controls the movement of the fly and collisions with the frog tongue
 
     //[SerializeField] private float moveLimit = 5.0f;
-    [SerializeField] private float speed;
+    protected float minX = -20f;
+    protected float maxX = 70f;
+    protected float minY = 0f;
+    protected float maxY = 2.3f;
+    [SerializeField] protected float speed;
+    [SerializeField] protected Animator anim;
     protected List<Vector3> positions = new List<Vector3>();
     private int index;
     private bool isGoingback;
@@ -23,6 +28,7 @@ public class FlyMovements : MonoBehaviour
     void Update()
     {
         moveFly();
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -31,13 +37,15 @@ public class FlyMovements : MonoBehaviour
         if(collision.tag == "TongueCol")
         {
             print("Hit = TOngue collision");
-            Destroy(this.gameObject);
+            anim.SetTrigger("Death");
+           
         }
     }
 
     protected virtual void moveFly()
     {
         transform.position = Vector2.MoveTowards(transform.position, positions[index], Time.deltaTime * speed);
+        
 
         if(transform.position == positions[index])
         {
@@ -79,7 +87,12 @@ public class FlyMovements : MonoBehaviour
         positions.Add(pos5);
     }
 
+    protected virtual void Death()
+    {
+        Destroy(this.gameObject);
+    }
 
 
-    
+
+
 }

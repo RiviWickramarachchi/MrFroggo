@@ -9,8 +9,8 @@ public class BugGenerator : Singleton<BugGenerator>
     [SerializeField] private int fireBugCount;
     [SerializeField] private GameObject[] flies;
     [SerializeField] private GameObject[] fireBugs;
-    private float minX = -50f;
-    private float maxX = 50f;
+    private float minX = -20f;
+    private float maxX = 0f;
     private float minY = 0f;
     private float maxY = 2.3f;
 

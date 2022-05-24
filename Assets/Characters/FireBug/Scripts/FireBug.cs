@@ -5,7 +5,7 @@ using UnityEngine.Assertions;
 
 public class FireBug : FlyMovements
 {
-    [SerializeField]private Animator fireBugAnims;
+    
     private float colorTime = 4.0f;
     private float transitionTime = 3.0f;
     private float offColorTime = 3.0f;
@@ -18,7 +18,7 @@ public class FireBug : FlyMovements
 
     private void Awake()
     {
-        Assert.IsNotNull(fireBugAnims);
+        Assert.IsNotNull(anim);
        
     }
 
@@ -59,27 +59,27 @@ public class FireBug : FlyMovements
             {
                 ascending = true;
             }
-            fireBugAnims.SetBool("fireOn", true);
-            fireBugAnims.SetBool("transition", false);
-            fireBugAnims.SetBool("fireOff", false);
+            anim.SetBool("fireOn", true);
+            anim.SetBool("transition", false);
+            anim.SetBool("fireOff", false);
         }
         else
         {
             if(timer < colorTime + transitionTime)
             {
                 
-                fireBugAnims.SetBool("fireOn", false);
-                fireBugAnims.SetBool("transition", true);
-                fireBugAnims.SetBool("fireOff", false);
+                anim.SetBool("fireOn", false);
+                anim.SetBool("transition", true);
+                anim.SetBool("fireOff", false);
             }
             else
             {
                 if(timer < colorTime + transitionTime + offColorTime)
                 {
                   
-                    fireBugAnims.SetBool("fireOn", false);
-                    fireBugAnims.SetBool("transition", false);
-                    fireBugAnims.SetBool("fireOff", true);
+                    anim.SetBool("fireOn", false);
+                    anim.SetBool("transition", false);
+                    anim.SetBool("fireOff", true);
                 }
                 else
                 {
@@ -96,15 +96,12 @@ public class FireBug : FlyMovements
         if (collision.tag == "TongueCol")
         {
             print("Hit = TOngue collisionFB");
-            fireBugAnims.SetTrigger("Death");
+            anim.SetTrigger("Death");
             
         }
     }
 
-    private void Death()
-    {
-        Destroy(this.gameObject);
-    }
+    
 
 
 
