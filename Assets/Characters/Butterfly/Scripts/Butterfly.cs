@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Butterfly : FlyMovements
 {
-    
     private float maxXDistance = 5.0f;
     private Vector3 startingPos;
     private Vector3 endingPos;
@@ -12,10 +11,6 @@ public class Butterfly : FlyMovements
     protected float startTime;
     protected float totDistance;
     private bool deadButterfly;
-    
-
-
-
 
     void Start()
     {
@@ -25,15 +20,13 @@ public class Butterfly : FlyMovements
         startingPos = transform.position;
         endingPos = new Vector3(generateXPos(), generateYPos(), 0f);
         //midPos = new Vector3((startingPos.x + endingPos.x) * 0.5f, 0.66f, 0f);
-        
     }
 
-    
+
     void Update()
     {
         moveFly();
-        
-        
+
     }
 
     private float generateXPos()
@@ -67,7 +60,6 @@ public class Butterfly : FlyMovements
                 endingPos = new Vector3(generateXPos(), generateYPos(), 0f);
                 journeyFraction = 0;
                 startTime = Time.time;
-                print(startTime);
                 totDistance = Vector3.Distance(startingPos, endingPos);
                 currentDuration = (Time.time - startTime) * speed;
                 journeyFraction = currentDuration / totDistance;
@@ -79,8 +71,7 @@ public class Butterfly : FlyMovements
             journeyFraction = currentDuration / totDistance;
             transform.position = Vector3.Lerp(startingPos, endingPos, journeyFraction);
         }
-        
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -89,7 +80,6 @@ public class Butterfly : FlyMovements
         if (collision.tag == "TongueCol")
         {
             print("Hit = TOngue collisionButterFly");
-            
             anim.SetTrigger("Death");
 
         }

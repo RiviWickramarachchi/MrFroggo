@@ -7,6 +7,9 @@ TagManager:
   - TongueCol
   - Fly
   - FireBug
+  - Bee
+  - Fairy
+  - Butterfly
   layers:
   - Default
   - TransparentFX

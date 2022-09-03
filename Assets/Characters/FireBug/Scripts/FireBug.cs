@@ -12,14 +12,12 @@ public class FireBug : FlyMovements
     private float timer = 0f;
     private bool ascending;
 
-    
     public float Timer { get => timer;  }
     public float ColorTime { get => colorTime; }
 
     private void Awake()
     {
         Assert.IsNotNull(anim);
-       
     }
 
     protected override void addPositions()
@@ -34,12 +32,10 @@ public class FireBug : FlyMovements
         positions.Add(pos3);
         positions.Add(pos4);
         positions.Add(pos5);
-        
     }
 
     private void setFireBugAnimations()
     {
-        
 
         if (ascending)
         {
@@ -49,8 +45,6 @@ public class FireBug : FlyMovements
         {
             timer -= 1 * Time.deltaTime;
         }
-        
-       
 
         if (timer < colorTime)
         {
@@ -67,7 +61,6 @@ public class FireBug : FlyMovements
         {
             if(timer < colorTime + transitionTime)
             {
-                
                 anim.SetBool("fireOn", false);
                 anim.SetBool("transition", true);
                 anim.SetBool("fireOff", false);
@@ -76,7 +69,6 @@ public class FireBug : FlyMovements
             {
                 if(timer < colorTime + transitionTime + offColorTime)
                 {
-                  
                     anim.SetBool("fireOn", false);
                     anim.SetBool("transition", false);
                     anim.SetBool("fireOff", true);
@@ -97,14 +89,8 @@ public class FireBug : FlyMovements
         {
             print("Hit = TOngue collisionFB");
             anim.SetTrigger("Death");
-            
         }
     }
-
-    
-
-
-
     private void Update()
     {
         moveFly();

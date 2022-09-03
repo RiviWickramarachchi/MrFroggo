@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEditor;
 
@@ -13,7 +14,8 @@ public class FrogActions : MonoBehaviour
     private Animator anim;
     private SpriteRenderer sr;
 
-   
+    public static event Action<Collider2D> FrogCollision;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -78,15 +80,10 @@ public class FrogActions : MonoBehaviour
                         break;
                     default:
                         break;
-        
                 }
-
-                
-
             }
             if (touch.phase == TouchPhase.Ended)
             {
-                
                 StartCoroutine(waitForAnimFinish(0.8f)); //have to get the proper animation length
                 //anim.SetBool("tongueOut", false);
             }
@@ -96,10 +93,14 @@ public class FrogActions : MonoBehaviour
 
     IEnumerator waitForAnimFinish(float waitTime)
     {
-        yield return new WaitForSeconds(waitTime); 
+        yield return new WaitForSeconds(waitTime);
         tongueObj.transform.rotation = Quaternion.Euler(Vector3.forward * 0);
         //print("Reset tongue rot value =" + UnityEditor.TransformUtils.GetInspectorRotation(tongueObj.transform).z);
         //anim.SetInteger("tongueVal", 0);
         anim.SetFloat("idleSpeed", 1f);
-    }   
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        FrogCollision?.Invoke(collision);
+    }
 }

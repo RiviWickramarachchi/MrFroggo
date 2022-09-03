@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class TimerBar : MonoBehaviour
 {
-    //Controls the time bar 
+    //Controls the time bar
     [SerializeField]private Gradient gradient;
     [SerializeField] private Slider timeBar;
     [SerializeField] private Image fillImg;
     [SerializeField] private Animator tbAnim;
-    
+
 
     public float getTimeVal()
     {
@@ -37,8 +37,6 @@ public class TimerBar : MonoBehaviour
         {
             tbAnim.Play("warning");
         }
-        
-        
     }
 
 }

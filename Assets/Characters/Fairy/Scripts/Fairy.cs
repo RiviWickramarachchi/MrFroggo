@@ -1,14 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Fairy : FlyMovements
 {
-    [SerializeField] private GameObject frogPlayer;
+
+    public static event Action GetFroggoObj;
     [SerializeField] private float waitTime = 3f;
+    private GameObject frogPlayer;
     private int positionNumber = 0;
     private float time = 0f;
+    public bool send = true;
 
+    void OnEnable(){
+        BugGenerator.SendFrogObjectToFairy += GetFrogObject;
+        //The fairy object requests for the frogObject from the BugGenerator which is attached onto froggo on Enable
+        GetFroggoObj?.Invoke();
+    }
     void Update()
     {
         moveFly();
@@ -16,7 +25,7 @@ public class Fairy : FlyMovements
 
     protected override void moveFly()
     {
-        Debug.Log(positionNumber);
+
         switch(positionNumber)
         {
             case 0:
@@ -31,7 +40,6 @@ public class Fairy : FlyMovements
                         time = 0f;
                         transitionToFlyMoveState();
                         positionNumber++;
-                        
                     }
 
                 }
@@ -49,7 +57,6 @@ public class Fairy : FlyMovements
                         time = 0f;
                         transitionToFlyMoveState();
                         positionNumber++;
-                        
                     }
                 }
                 break;
@@ -84,7 +91,7 @@ public class Fairy : FlyMovements
                 }
                 break;
             case 4:
-                Vector3 positionFive = new Vector3((frogPlayer.transform.position.x + 3f), (frogPlayer.transform.position.y + 1.05f), 0f);
+                Vector3 positionFive = new Vector3((frogPlayer.transform.position.x + 3f), (frogPlayer.transform.transform.position.y + 1.05f), 0f);
                 transform.position = Vector2.MoveTowards(transform.position, positionFive, Time.deltaTime * speed);
                 if (transform.position == positionFive)
                 {
@@ -120,7 +127,6 @@ public class Fairy : FlyMovements
 
 
         }
-        
     }
 
     private void transitionToFlyIdleState()
@@ -150,4 +156,28 @@ public class Fairy : FlyMovements
         }
     }
 
+    private void callFairyDeathAnim()
+    {
+        anim.SetTrigger("Death");
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.tag == "TongueCol")
+        {
+            print("Hit = TOngue collisionButterFly");
+            callFairyDeathAnim();
+
+        }
+    }
+
+    //Frog object is retrieved by this method where the transform.position of it is used for the fairy movements
+    public void GetFrogObject(GameObject go) {
+        frogPlayer = go;
+     }
+
+     void OnDisable() {
+        BugGenerator.SendFrogObjectToFairy -= GetFrogObject;
+    }
 }

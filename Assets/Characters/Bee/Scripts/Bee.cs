@@ -39,48 +39,17 @@ public class Bee : FlyMovements
     {
         deadBee = false;
         addPositions();
-        
     }
 
 
     void Update()
     {
         moveFly();
-     
     }
 
     protected override void moveFly()
     {
-
-        //float currentDuration;
-        //float journeyFraction;
-
-        //Fish Movement
-        //if (transform.position == endingPos)
-        //{
-        //    startingPos = transform.position;
-        //    endingPos = new Vector3(startingPos.x + 7.0f, startingPos.y, 0f);
-        //    midPos = new Vector3((startingPos.x + endingPos.x) * 0.5f, 0.66f, 0f);
-        //    journeyFraction = 0;
-        //    startTime = Time.time;
-        //    print(startTime);
-        //    totDistance = Vector3.Distance(startingPos, endingPos);
-        //    currentDuration = (Time.time - startTime) * speed;
-        //    journeyFraction = currentDuration / totDistance;
-
-        //}
-
-
-        //totDistance = Vector3.Distance(startingPos, endingPos);
-        //print(Time.time);
-        //currentDuration = (Time.time - startTime) * speed;
-        //journeyFraction = currentDuration / totDistance;
-        //Vector3 startMid = Vector3.Lerp(startingPos, midPos, journeyFraction);
-        //Vector3 midEnd = Vector3.Lerp(midPos, endingPos, journeyFraction);
-        //transform.position = Vector3.Lerp(startMid, midEnd, journeyFraction);
-
-
-        //Bee movements 
+        //Bee movements
         if(deadBee == false)
         {
             transform.position = Vector2.MoveTowards(transform.position, positions[index], Time.deltaTime * speed);
@@ -115,9 +84,6 @@ public class Bee : FlyMovements
             }
 
         }
-        
-       
-
     }
     protected override void addPositions()
     {
@@ -135,7 +101,7 @@ public class Bee : FlyMovements
     {
         if (collision.tag == "TongueCol")
         {
-            print("Hit = TOngue collisionButterFly");
+            print("Hit = TOngue collisionBee");
 
             anim.SetTrigger("Death");
 
