@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class FlyMovements : MonoBehaviour
 {
@@ -28,6 +29,9 @@ public class FlyMovements : MonoBehaviour
         moveFly();
     }
 
+    protected virtual void OnEnable() {
+        FroggoPlayer.DestroyOnEndState += Death;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
@@ -86,7 +90,7 @@ public class FlyMovements : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-
-
-
+    protected virtual void OnDisable() {
+        FroggoPlayer.DestroyOnEndState -= Death;
+    }
 }

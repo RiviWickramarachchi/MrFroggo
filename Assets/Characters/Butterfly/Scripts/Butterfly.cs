@@ -49,6 +49,12 @@ public class Butterfly : FlyMovements
         //Butterfly movement
         if (deadButterfly == false)
         {
+            //the butterfly only moves properly in the build when the movement is coded like this
+            totDistance = Vector3.Distance(startingPos, endingPos);
+            currentDuration = (Time.time - startTime) * speed;
+            journeyFraction = currentDuration / totDistance;
+            transform.position = Vector3.Lerp(startingPos, endingPos, journeyFraction);
+
             if (transform.position == endingPos)
             {
                 if (transform.position.x > maxX)
@@ -65,11 +71,11 @@ public class Butterfly : FlyMovements
                 journeyFraction = currentDuration / totDistance;
 
             }
-
-            totDistance = Vector3.Distance(startingPos, endingPos);
-            currentDuration = (Time.time - startTime) * speed;
-            journeyFraction = currentDuration / totDistance;
-            transform.position = Vector3.Lerp(startingPos, endingPos, journeyFraction);
+            //gonna keep this snippet just in case
+            // totDistance = Vector3.Distance(startingPos, endingPos);
+            // currentDuration = (Time.time - startTime) * speed;
+            // journeyFraction = currentDuration / totDistance;
+            // transform.position = Vector3.Lerp(startingPos, endingPos, journeyFraction);
         }
 
     }

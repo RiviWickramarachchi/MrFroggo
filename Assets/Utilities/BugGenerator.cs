@@ -18,12 +18,19 @@ public class BugGenerator : Singleton<BugGenerator>
     private float maxX = 50f;
     private float minY = 0f;
     private float maxY = 2.3f;
-    private bool gameIsNotOverYet;
+    private IEnumerator routine;
 
     public enum TimeStates{
         TimeQuiteFull, //time > 20 <40
         TimeAlmostFull, //time > 40 :Increase the no of firebugs and other enemy types if the player is doing well
         TimeAlmostFinished, //time < 10: Help the player by sending normal flies and goldfish to the game
+    }
+
+    public enum BugGenStates {
+        GenerateBugs,
+        GeneratingBugs,
+        StopGenerating,
+        Stopped
     }
     public enum PlayerStates {
         Normal,
@@ -31,12 +38,21 @@ public class BugGenerator : Singleton<BugGenerator>
         PlayerStunned //Help the player by adding more flies
     }
 
+    public enum PlayerScoreStates {
+        ScoreBelow25,
+        ScoreOver25,
+        ScoreOver50
+    }
+
     public PlayerStates playerStates;
     public TimeStates timeStates;
+    public PlayerScoreStates playerScoreStates;
+    public BugGenStates bugGenStates;
     public int FlyCount { get => flyCount; }
     public static event Action<GameObject> SendFrogObjectToFairy;
 
     void OnEnable(){
+        FroggoPlayer.UpdateBugGeneratorScoreState += ChangePlayerScoreStates;
         FroggoPlayer.UpdateBugGeneratorPlayer += ChangePlayerStates;
         FroggoPlayer.UpdateBugGeneratorTime += ChangeTimeStates;
         FroggoPlayer.TimeIsOver += GameOverState;
@@ -99,36 +115,44 @@ public class BugGenerator : Singleton<BugGenerator>
 
     //A method to instantiate a fairy when the player gets a nerf
     //Methods to spawn other bugs as the game progresses
-    IEnumerator InGameBugGenerator(bool isGameState) {
+    IEnumerator InGameBugGenerator() {
         while(true) {
+            //might not need all of the states here but keep it since it might be useful in the future
             switch(timeStates) {
-            case TimeStates.TimeAlmostFull:
-                yield return new WaitForSeconds(2f);
-                InstantiateFireBugs();
-                break;
-            case TimeStates.TimeQuiteFull:
-                yield return new WaitForSeconds(3f);
-                InstantiateButterfly();
-                break;
-            case TimeStates.TimeAlmostFinished:
-                yield return new WaitForSeconds(2f);
-                InstantiateFlies();
-                break;
-            default:
-                yield return new WaitForSeconds(0.1f);
-                break;
+                case TimeStates.TimeAlmostFinished:
+                    yield return new WaitForSeconds(2f);
+                    InstantiateFlies();
+                    break;
+                default:
+                    yield return new WaitForSeconds(0.1f);
+                    break;
+            }
+
+            switch(playerScoreStates) {
+                case PlayerScoreStates.ScoreBelow25:
+                    yield return new WaitForSeconds(2f);
+                    InstantiateFlies();
+                    break;
+                case PlayerScoreStates.ScoreOver25:
+                    yield return new WaitForSeconds(3f);
+                    InstantiateButterfly();
+                    break;
+                case PlayerScoreStates.ScoreOver50:
+                    yield return new WaitForSeconds(2f);
+                    InstantiateFireBugs();
+                    break;
             }
 
             switch(playerStates) {
-            case PlayerStates.PlayerStunned:
-                yield return new WaitForSeconds(5f);
-                InstantiateGoldFish();
-                playerStates = PlayerStates.Normal;
-                break;
-            case PlayerStates.PlayerNerfed:
-                InstantiateFairy();
-                yield return new WaitForSeconds(13f);
-                break;
+                case PlayerStates.PlayerStunned:
+                    yield return new WaitForSeconds(5f);
+                    InstantiateGoldFish();
+                    playerStates = PlayerStates.Normal;
+                    break;
+                case PlayerStates.PlayerNerfed:
+                    InstantiateFairy();
+                    yield return new WaitForSeconds(13f);
+                    break;
             }
         }
         //Debug.Log("game over");
@@ -148,6 +172,7 @@ public class BugGenerator : Singleton<BugGenerator>
         }
     }
 
+    //might not use all of its states but keep this regardless
     public void ChangeTimeStates(int y) {
         switch(y) {
             case 1:
@@ -162,25 +187,43 @@ public class BugGenerator : Singleton<BugGenerator>
         }
     }
 
-    public void GameOverState(bool isGameOver){
-        gameIsNotOverYet = isGameOver;
+    public void ChangePlayerScoreStates(int z) {
+        switch(z) {
+            case 7:
+                playerScoreStates = PlayerScoreStates.ScoreOver25;
+                break;
+            case 8:
+                playerScoreStates = PlayerScoreStates.ScoreOver50;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void GameOverState(){
+        //change BugGenState
+        bugGenStates = BugGenStates.StopGenerating;
     }
     void Update() {
-        Debug.Log(playerStates);
+        if(bugGenStates == BugGenStates.GenerateBugs) {
+            StartCoroutine(routine);
+            bugGenStates = BugGenStates.GeneratingBugs;
+        }
+        if(bugGenStates == BugGenStates.StopGenerating) {
+            StopCoroutine(routine);
+            bugGenStates = BugGenStates.Stopped;
+        }
     }
     void Start()
     {
-        gameIsNotOverYet = true;
+        routine = InGameBugGenerator();
         playerStates = PlayerStates.Normal;
+        playerScoreStates = PlayerScoreStates.ScoreBelow25;
         for (int i = 0; i < flyCount; i++)
         {
             InstantiateFlies();
         }
-        for(int i=0; i< fireBugCount; i++)
-        {
-            InstantiateFireBugs();
-        }
-        StartCoroutine(InGameBugGenerator(gameIsNotOverYet));
+        bugGenStates = BugGenStates.GenerateBugs;
     }
 
     //This method is invoked when a fairy is instantiated
@@ -189,6 +232,7 @@ public class BugGenerator : Singleton<BugGenerator>
         SendFrogObjectToFairy?.Invoke(this.gameObject);
     }
     void OnDisable(){
+        FroggoPlayer.UpdateBugGeneratorScoreState -= ChangePlayerScoreStates;
         FroggoPlayer.UpdateBugGeneratorPlayer -= ChangePlayerStates;
         FroggoPlayer.UpdateBugGeneratorTime -= ChangeTimeStates;
         FroggoPlayer.TimeIsOver -= GameOverState;
