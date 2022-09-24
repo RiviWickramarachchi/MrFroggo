@@ -20,10 +20,12 @@ public class LevelLoader : MonoBehaviour
     }
 
     public void GoToMenu() {
+        Time.timeScale = 1;
         StartCoroutine(LoadLevel(0));
     }
 
     public void ReloadScene() {
+        Time.timeScale = 1;
         StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex));
     }
 

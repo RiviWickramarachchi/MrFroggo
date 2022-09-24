@@ -183,6 +183,7 @@ public class FroggoPlayer : MonoBehaviour
         TimeIsOver?.Invoke();
         DestroyOnEndState?.Invoke();
         gameOverPanel.SetActive(true);
+        Time.timeScale = 0;
     }
 
     void OnDisable() {
