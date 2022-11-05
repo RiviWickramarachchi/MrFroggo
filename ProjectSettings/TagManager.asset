@@ -10,6 +10,8 @@ TagManager:
   - Bee
   - Fairy
   - Butterfly
+  - FrogBody
+  - Spider
   layers:
   - Default
   - TransparentFX

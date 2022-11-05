@@ -193,7 +193,7 @@ Transform:
   m_GameObject: {fileID: 9149923244458269410}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10.22, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9149923243229268907}
@@ -214,5 +214,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   anim: {fileID: 9149923243229268905}
-  frogPlayer: {fileID: 0}
   waitTime: 3
+  send: 1

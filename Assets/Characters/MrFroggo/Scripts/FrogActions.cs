@@ -10,10 +10,9 @@ public class FrogActions : MonoBehaviour
 
     //[SerializeField] private GameObject frogPupilObj;
     [SerializeField] private GameObject tongueObj;
-
+    [SerializeField] private FroggoPlayer froggoPlayer;
     private Animator anim;
     private SpriteRenderer sr;
-
     public static event Action<Collider2D> FrogCollision;
 
     // Start is called before the first frame update
@@ -26,6 +25,7 @@ public class FrogActions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -39,7 +39,49 @@ public class FrogActions : MonoBehaviour
                 //print(sprite.name);
                 string animSprite = sprite.name;
                 //anim.SetBool("tongueOut", true);
-
+                if(froggoPlayer.GetFrogEffect() == 2) {
+                    switch(animSprite)
+                    {
+                        case "idle_1":
+                            anim.Play("froggo_bee_tongue1");
+                            break;
+                        case "idle_2":
+                            anim.Play("froggo_bee_tongue2");
+                            break;
+                        case "idle_3":
+                            anim.Play("froggo_bee_tongue3");
+                            break;
+                        case "idle_4":
+                            anim.Play("froggo_bee_tongue4");
+                            break;
+                        case "idle_5":
+                            anim.Play("froggo_bee_tongue5");
+                            break;
+                        case "idle_6":
+                            anim.Play("froggo_bee_tongue6");
+                            break;
+                        case "idle_7":
+                            anim.Play("froggo_bee_tongue7");
+                            break;
+                        case "idle_8":
+                            anim.Play("froggo_bee_tongue8");
+                            break;
+                        case "idle_9":
+                            anim.Play("froggo_bee_tongue9");
+                            break;
+                        case "idle_10":
+                            anim.Play("froggo_bee_tongue10");
+                            break;
+                        case "idle_11":
+                            anim.Play("froggo_bee_tongue11");
+                            break;
+                        case "idle_12":
+                            anim.Play("froggo_bee_tongue12");
+                            break;
+                        default:
+                            break;
+                    }
+                }
                 switch(animSprite)
                 {
                     case "idle_1":
@@ -81,6 +123,7 @@ public class FrogActions : MonoBehaviour
                     default:
                         break;
                 }
+
             }
             if (touch.phase == TouchPhase.Ended)
             {

@@ -32,9 +32,8 @@ public class FlyMovements : MonoBehaviour
     protected virtual void OnEnable() {
         FroggoPlayer.DestroyOnEndState += Death;
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-
         if(collision.tag == "TongueCol")
         {
             print("Hit = TOngue collision");

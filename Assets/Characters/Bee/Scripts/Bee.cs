@@ -97,17 +97,6 @@ public class Bee : FlyMovements
         positions.Add(endingPos);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "TongueCol")
-        {
-            print("Hit = TOngue collisionBee");
-
-            anim.SetTrigger("Death");
-
-        }
-    }
-
     //private void LerpTest()
     //{
     //    interpolateAmt = (interpolateAmt + Time.deltaTime) % 1f;

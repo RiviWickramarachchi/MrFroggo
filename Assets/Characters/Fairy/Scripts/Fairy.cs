@@ -13,7 +13,7 @@ public class Fairy : FlyMovements
     private float time = 0f;
     public bool send = true;
 
-    void OnEnable(){
+    protected override void OnEnable(){
         BugGenerator.SendFrogObjectToFairy += GetFrogObject;
         //The fairy object requests for the frogObject from the BugGenerator which is attached onto froggo on Enable
         GetFroggoObj?.Invoke();
@@ -161,9 +161,8 @@ public class Fairy : FlyMovements
         anim.SetTrigger("Death");
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.tag == "TongueCol")
         {
             print("Hit = TOngue collisionButterFly");
@@ -177,7 +176,7 @@ public class Fairy : FlyMovements
         frogPlayer = go;
      }
 
-     void OnDisable() {
+     protected override void OnDisable() {
         BugGenerator.SendFrogObjectToFairy -= GetFrogObject;
     }
 }

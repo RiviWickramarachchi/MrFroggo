@@ -14,6 +14,7 @@ public class BugGenerator : Singleton<BugGenerator>
     [SerializeField] private GameObject butterflies;
     [SerializeField] private GameObject goldFish;
     [SerializeField] private GameObject fairy;
+    [SerializeField] private GameObject spider;
     private float minX = 0f;
     private float maxX = 50f;
     private float minY = 0f;
@@ -64,13 +65,13 @@ public class BugGenerator : Singleton<BugGenerator>
         Assert.IsNotNull(fireBugs);
     }
 
-    private float GenerateXPos()
+    private float GenerateXPos(float minx, float maxX)
     {
         float randomXPos = UnityEngine.Random.Range(minX, maxX);
         return randomXPos;
     }
 
-    private float GenerateYPos()
+    private float GenerateYPos(float minY, float maxY)
     {
         float randomYPos = UnityEngine.Random.Range(minY, maxY);
         return randomYPos;
@@ -79,8 +80,8 @@ public class BugGenerator : Singleton<BugGenerator>
     //Use coroutines to instantiate normal flies depending on the player score as the game progresses
     private void InstantiateFlies()
     {
-        float x = GenerateXPos();
-        float y = GenerateYPos();
+        float x = GenerateXPos(minX,maxX);
+        float y = GenerateYPos(minY, maxY);
         //Instantiate(availableGems[index], new Vector3(x, y, z), Quaternion.identity);
         Instantiate(flies, new Vector3(x, y, 0),Quaternion.identity);
         print("fly instantiated");
@@ -89,28 +90,33 @@ public class BugGenerator : Singleton<BugGenerator>
     //Use coroutines to instantiate firebugs depending on the player score as the game progresses
     private void InstantiateFireBugs()
     {
-        float x = GenerateXPos();
-        float y = GenerateYPos();
+        float x = GenerateXPos(minX, maxX);
+        float y = GenerateYPos(minY,maxY);
         Instantiate(fireBugs, new Vector3(x, y, 0), Quaternion.identity);
         print("fireBug instantiated");
     }
     private void InstantiateButterfly() {
-        float x = GenerateXPos();
-        float y = GenerateYPos();
+        float x = GenerateXPos(minX, maxX);
+        float y = GenerateYPos(minY,maxY);
         Instantiate(butterflies, new Vector3(x, y, 0), Quaternion.identity);
         print("butterfly instantiated");
     }
 
     private void InstantiateFairy() {
-        float y = GenerateYPos();
+        float y = GenerateYPos(minY,maxY);
         Instantiate(fairy, new Vector3(70f,y, 0), Quaternion.identity); //better not to hardcode position values
         print("Fairy instantiated");
     }
 
     private void InstantiateGoldFish() {
-        float x = GenerateXPos();
+        float x = GenerateXPos(minX, maxX);
         Instantiate(goldFish, new Vector3(x, -5.36f, 0), Quaternion.identity);
         print("Goldfish instantiated");
+    }
+
+    private void InstantiateSpider() {
+        float x = GenerateXPos(10f, 39f);
+        Instantiate(spider, new Vector3(x, 5.9f,0), Quaternion.identity);
     }
 
     //A method to instantiate a fairy when the player gets a nerf

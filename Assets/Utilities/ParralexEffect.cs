@@ -5,7 +5,7 @@ using UnityEngine;
 public class ParralexEffect : MonoBehaviour
 {
     private float startPos, length;
-    public GameObject camera;
+    public GameObject cam;
     public float parallexEffect;
     // Start is called before the first frame update
     void Start()
@@ -18,8 +18,8 @@ public class ParralexEffect : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        float temp = (camera.transform.position.x * (1 - parallexEffect));
-        float dist = (camera.transform.position.x * parallexEffect);
+        float temp = (cam.transform.position.x * (1 - parallexEffect));
+        float dist = (cam.transform.position.x * parallexEffect);
 
         transform.position = new Vector3(startPos + dist, transform.position.y, transform.position.z);
         if(temp > startPos + length)

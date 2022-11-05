@@ -5,7 +5,7 @@ using UnityEngine.Assertions;
 
 public class FireBug : FlyMovements
 {
-    
+
     private float colorTime = 4.0f;
     private float transitionTime = 3.0f;
     private float offColorTime = 3.0f;
@@ -79,16 +79,6 @@ public class FireBug : FlyMovements
                 }
 
             }
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-
-        if (collision.tag == "TongueCol")
-        {
-            print("Hit = TOngue collisionFB");
-            anim.SetTrigger("Death");
         }
     }
     private void Update()

@@ -13,16 +13,20 @@ public class FroggoPlayer : MonoBehaviour
     [SerializeField] private TimerBar tb;
     [SerializeField] private Animator anim;
     [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TMP_Text gameOverScoreText;
+    [SerializeField] private TMP_Text gameOverHighScoreText;
     [SerializeField] private GameObject gameOverPanel;
     private float butterflyEffectTime = 10f;
     private float timeOfEffect;
     private float currentTimeVal;
     private int playerScore;
+    private int beeScore = 4;
     private int flyScore = 5;
-    private int fireBugScore = 5;
+    private int fireBugScore = 6;
     private int fireBugPenalty = -2;
     private int butterflyScore = 8;
     private int fishScore = 10;
+    private int spiderScore = 10;
 
 
     public enum FrogEffects {
@@ -45,6 +49,7 @@ public class FroggoPlayer : MonoBehaviour
 
     void OnEnable() {
         FrogActions.FrogCollision += CollidedWithFroggo;
+        Spider.FroggoCollided += CollisionsWithSpider;
     }
     // Start is called before the first frame update
     void Start()
@@ -72,9 +77,21 @@ public class FroggoPlayer : MonoBehaviour
             anim.speed = 0.5f;
         }
 
-        if(currentTimeVal <= timeOfEffect - butterflyEffectTime){
+        if(currentTimeVal <= timeOfEffect - butterflyEffectTime) {
             frogEffects = FrogEffects.Normal;
             UpdateBugGeneratorPlayer?.Invoke(6);
+        }
+    }
+
+    public int GetFrogEffect() {
+        if(frogEffects == FrogEffects.Normal) {
+            return 1;
+        }
+        else if (frogEffects == FrogEffects.BeeEffect) {
+            return 2;
+        }
+        else {
+            return 3;
         }
     }
 
@@ -154,17 +171,39 @@ public class FroggoPlayer : MonoBehaviour
 
         if(collision.tag == "GoldFish"){
             UpdateScore(fishScore);
-            AdjustTime(25.0f);
+            AdjustTime(20.0f);
             tb.setAnimations("boost");
         }
 
         if(collision.tag == "Butterfly") {
             UpdateScore(butterflyScore);
-            AdjustTime(20.0f);
+            AdjustTime(12.0f);
             tb.setAnimations("boost");
             timeOfEffect = currentTimeVal;
             frogEffects = FrogEffects.ButterflyEffect;
             UpdateBugGeneratorPlayer?.Invoke(5);
+        }
+
+        if(collision.tag == "Bee") {
+            UpdateScore(beeScore);
+            AdjustTime(10.0f);
+            tb.setAnimations("boost");
+            frogEffects = FrogEffects.BeeEffect;
+            UpdateBugGeneratorPlayer?.Invoke(5);
+        }
+    }
+
+    private void CollisionsWithSpider(Collider2D collision) {
+        Debug.Log("Spider Collision actions are taken here");
+        if(collision.tag == "TongueCol") {
+            UpdateScore(spiderScore);
+            AdjustTime(10.0f);
+            tb.setAnimations("boost");
+        }
+
+        if(collision.tag == "FrogBody") {
+            AdjustTime(-10.0f);
+            anim.Play("froggo_bleed");
         }
     }
 
@@ -183,10 +222,20 @@ public class FroggoPlayer : MonoBehaviour
         TimeIsOver?.Invoke();
         DestroyOnEndState?.Invoke();
         gameOverPanel.SetActive(true);
+        gameOverScoreText.text = playerScore.ToString("00");
+        DisplayHighScore();
         Time.timeScale = 0;
+    }
+
+    private void DisplayHighScore() {
+        if(playerScore > PlayerPrefs.GetInt("HighScore",0)) {
+            PlayerPrefs.SetInt("HighScore", playerScore);
+        }
+        gameOverHighScoreText.text = PlayerPrefs.GetInt("HighScore").ToString("00");
     }
 
     void OnDisable() {
          FrogActions.FrogCollision -= CollidedWithFroggo;
+         Spider.FroggoCollided -= CollisionsWithSpider;
     }
 }
