@@ -9,32 +9,6 @@ public class Bee : FlyMovements
     private int index = 0;
     private bool deadBee;
 
-    //testing
-    //private float interpolateAmt;
-    //[SerializeField] private Transform pointA;
-    //[SerializeField] private Transform pointB;
-    //[SerializeField] private Transform pointC;
-    //[SerializeField] private Transform pointD;
-    //[SerializeField] private Transform pointE;
-    //[SerializeField] private Transform pointF;
-    //[SerializeField] private Transform pointAB;
-    //[SerializeField] private Transform pointBC;
-    //[SerializeField] private Transform pointCD;
-    //[SerializeField] private Transform pointDE;
-    //[SerializeField] private Transform pointEF;
-    //[SerializeField] private Transform pointABC;
-    //[SerializeField] private Transform pointBCD;
-    //[SerializeField] private Transform pointCDE;
-    //[SerializeField] private Transform pointDEF;
-    //[SerializeField] private Transform pointABCD;
-    //[SerializeField] private Transform pointBCDE;
-    //[SerializeField] private Transform pointCDEF;
-    //[SerializeField] private Transform pointABCDE;
-    //[SerializeField] private Transform pointBCDEF;
-    //[SerializeField] private Transform pointABCDEF;
-
-
-
     void Start()
     {
         deadBee = false;
@@ -55,17 +29,16 @@ public class Bee : FlyMovements
             transform.position = Vector2.MoveTowards(transform.position, positions[index], Time.deltaTime * speed);
             if(transform.position.x < minX)
             {
-                anim.SetTrigger("Death");
                 deadBee = true;
-                return;
+                Death();
             }
             if (positions[index].x > transform.position.x)
             {
-                transform.localScale = new Vector2(-0.5f, transform.localScale.y);
+                transform.localScale = new Vector2(-0.7f, transform.localScale.y);
             }
             else
             {
-                transform.localScale = new Vector2(0.5f, transform.localScale.y);
+                transform.localScale = new Vector2(0.7f, transform.localScale.y);
             }
 
             if (transform.position == positions[index])

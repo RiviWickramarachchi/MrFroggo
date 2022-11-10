@@ -21,24 +21,24 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 21300000, guid: 05d3de5693f4f9b4a81f1608b2ac986d, type: 3}
-    - time: 0.31666666
+    - time: 0.1
       value: {fileID: 21300000, guid: 037ac7c5e1327594a818913d20980e61, type: 3}
-    - time: 0.38333333
+    - time: 0.21666667
       value: {fileID: 21300000, guid: 1c8d1b4f4c978c04bbfb13ff332aaf8c, type: 3}
-    - time: 0.45
+    - time: 0.31666666
       value: {fileID: 21300000, guid: 0039fed87886895419cac884bc5545d2, type: 3}
-    - time: 0.51666665
+    - time: 0.41666666
       value: {fileID: 21300000, guid: cb214d96653d2014a82466ad6cc7673e, type: 3}
-    - time: 0.6
+    - time: 0.51666665
       value: {fileID: 21300000, guid: 0ce7b01be9be1e5459e93d7e25d2f906, type: 3}
-    - time: 0.68333334
+    - time: 0.6333333
       value: {fileID: 21300000, guid: 674232b4a1ac32d4892b331452698890, type: 3}
-    - time: 0.76666665
+    - time: 0.73333335
       value: {fileID: 21300000, guid: 93f6fedc9d71a934994cfdb5dd5c54bd, type: 3}
     - time: 0.8333333
       value: {fileID: 21300000, guid: 05d3de5693f4f9b4a81f1608b2ac986d, type: 3}
     attribute: m_Sprite
-    path: Border
+    path: Slider/Background
     classID: 114
     script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_SampleRate: 60
@@ -49,7 +49,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 3227086401
+      path: 826968192
       attribute: 2015549526
       script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
       typeID: 114

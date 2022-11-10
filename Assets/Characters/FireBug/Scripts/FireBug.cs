@@ -83,7 +83,19 @@ public class FireBug : FlyMovements
     }
     private void Update()
     {
-        moveFly();
-        setFireBugAnimations();
+        if(reachedStartingPosition == false) {
+            if(transform.position == bugStartingPosition) {
+                reachedStartingPosition = true;
+                addPositions();
+                transform.localScale = new Vector2(0.7f, transform.localScale.y);
+            }
+            else {
+                transform.position = Vector2.MoveTowards(transform.position, bugStartingPosition, Time.deltaTime * speed);
+            }
+        }
+        else {
+            moveFly();
+            setFireBugAnimations();
+        }
     }
 }

@@ -117,8 +117,14 @@ public class FroggoPlayer : MonoBehaviour
         if((playerScore > 25) && (playerScore < 50)) {
             UpdateBugGeneratorScoreState?.Invoke(7);
         }
-        else if(playerScore > 50){
+        else if((playerScore > 50) && (playerScore < 75)){
             UpdateBugGeneratorScoreState?.Invoke(8);
+        }
+        else if((playerScore > 75) && (playerScore < 100)) {
+            UpdateBugGeneratorScoreState?.Invoke(9);
+        }
+        else if(playerScore > 100) {
+            UpdateBugGeneratorScoreState?.Invoke(10);
         }
     }
 
@@ -142,31 +148,41 @@ public class FroggoPlayer : MonoBehaviour
     private void CollidedWithFroggo(Collider2D collision)
     {
         if (collision.tag == "Fly") {
-            print("Hit = Fly");
-            UpdateScore(flyScore);
-            AdjustTime(10.0f);
-            tb.setAnimations("boost");
+            if(collision.gameObject.GetComponent<FlyMovements>().GetLastCollidedObject().tag == "TongueCol")
+            {
+                 print("Hit = Fly");
+                UpdateScore(flyScore);
+                AdjustTime(10.0f);
+                tb.setAnimations("boost");
+            }
         }
 
         if(collision.tag == "FireBug") {
-            print("FireBugTongueTriggered");
-            if(collision.gameObject.GetComponent<FireBug>().Timer < collision.gameObject.GetComponent<FireBug>().ColorTime)
+            if(collision.gameObject.GetComponent<FireBug>().GetLastCollidedObject().tag == "TongueCol")
             {
-                UpdateScore(fireBugPenalty);
-                UpdateBugGeneratorPlayer?.Invoke(4);
-                anim.Play("froggo_stun");
-            }
-            else {
-                UpdateScore(fireBugScore);
-                AdjustTime(15.0f);
+                print("FireBugTongueTriggered");
+                if(collision.gameObject.GetComponent<FireBug>().Timer < collision.gameObject.GetComponent<FireBug>().ColorTime)
+                {
+                    UpdateScore(fireBugPenalty);
+                    UpdateBugGeneratorPlayer?.Invoke(4);
+                    anim.Play("froggo_stun");
+                }
+                else {
+                    UpdateScore(fireBugScore);
+                    AdjustTime(15.0f);
+                }
             }
         }
 
         if (collision.tag == "Fairy") {
-            print("FairyTongueTriggered");
-            anim.Play("froggo_fairyDust");
-            frogEffects = FrogEffects.Normal;
-            UpdateBugGeneratorPlayer?.Invoke(6);
+            if(collision.gameObject.GetComponent<Fairy>().GetLastCollidedObject().tag == "TongueCol")
+            {
+                print("FairyTongueTriggered");
+                anim.Play("froggo_fairyDust");
+                frogEffects = FrogEffects.Normal;
+                UpdateBugGeneratorPlayer?.Invoke(6);
+            }
+
         }
 
         if(collision.tag == "GoldFish"){
@@ -176,20 +192,27 @@ public class FroggoPlayer : MonoBehaviour
         }
 
         if(collision.tag == "Butterfly") {
-            UpdateScore(butterflyScore);
-            AdjustTime(12.0f);
-            tb.setAnimations("boost");
-            timeOfEffect = currentTimeVal;
-            frogEffects = FrogEffects.ButterflyEffect;
-            UpdateBugGeneratorPlayer?.Invoke(5);
+            if(collision.gameObject.GetComponent<Butterfly>().GetLastCollidedObject().tag == "TongueCol")
+            {
+                UpdateScore(butterflyScore);
+                AdjustTime(12.0f);
+                tb.setAnimations("boost");
+                timeOfEffect = currentTimeVal;
+                frogEffects = FrogEffects.ButterflyEffect;
+                UpdateBugGeneratorPlayer?.Invoke(5);
+            }
         }
 
         if(collision.tag == "Bee") {
-            UpdateScore(beeScore);
-            AdjustTime(10.0f);
-            tb.setAnimations("boost");
-            frogEffects = FrogEffects.BeeEffect;
-            UpdateBugGeneratorPlayer?.Invoke(5);
+            if(collision.gameObject.GetComponent<Bee>().GetLastCollidedObject().tag == "TongueCol")
+            {
+                UpdateScore(beeScore);
+                AdjustTime(10.0f);
+                tb.setAnimations("boost");
+                frogEffects = FrogEffects.BeeEffect;
+                UpdateBugGeneratorPlayer?.Invoke(5);
+            }
+
         }
     }
 

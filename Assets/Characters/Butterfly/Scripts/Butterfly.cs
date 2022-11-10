@@ -79,15 +79,4 @@ public class Butterfly : FlyMovements
         }
 
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-
-        if (collision.tag == "TongueCol")
-        {
-            print("Hit = TOngue collisionButterFly");
-            anim.SetTrigger("Death");
-
-        }
-    }
 }

@@ -9,24 +9,44 @@ public class FlyMovements : MonoBehaviour
     //Controls the movement of the fly and collisions with the frog tongue
 
     //[SerializeField] private float moveLimit = 5.0f;
-    protected float minX = -25f;
-    protected float maxX =75f;
+    protected float minX = -2f;
+    protected float maxX =50f;
     protected float minY = 0f;
     protected float maxY = 2.3f;
+
+    protected float initialX;
+    protected float initialY;
     [SerializeField] protected float speed;
     [SerializeField] protected Animator anim;
     protected List<Vector3> positions = new List<Vector3>();
+    protected bool reachedStartingPosition;
+    protected Vector3 bugStartingPosition;
     private int index;
     private bool isGoingback;
+    public Collider2D lastCollided;
     void Start()
     {
-        addPositions();
+        reachedStartingPosition = false;
+        transform.localScale = new Vector2(-0.7f, transform.localScale.y);
     }
 
     // Update is called once per frame
     void Update()
     {
-        moveFly();
+        if(reachedStartingPosition == false) {
+            if(transform.position == bugStartingPosition) {
+                reachedStartingPosition = true;
+                addPositions();
+                transform.localScale = new Vector2(0.7f, transform.localScale.y);
+            }
+            else {
+                transform.position = Vector2.MoveTowards(transform.position, bugStartingPosition, Time.deltaTime * speed);
+            }
+        }
+        else {
+            moveFly();
+        }
+
     }
 
     protected virtual void OnEnable() {
@@ -34,6 +54,7 @@ public class FlyMovements : MonoBehaviour
     }
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
+        lastCollided = collision;
         if(collision.tag == "TongueCol")
         {
             print("Hit = TOngue collision");
@@ -50,13 +71,13 @@ public class FlyMovements : MonoBehaviour
             {
                 //index = 0;
                 isGoingback = true;
-                transform.localScale = new Vector2(-0.5f, transform.localScale.y);
+                transform.localScale = new Vector2(-0.7f, transform.localScale.y);
             }
             else if(index == 0)
             {
                 //index++; //goingback is false
                 isGoingback = false;
-                transform.localScale = new Vector2(0.5f, transform.localScale.y);
+                transform.localScale = new Vector2(0.7f, transform.localScale.y);
             }
 
             if(isGoingback)
@@ -68,6 +89,16 @@ public class FlyMovements : MonoBehaviour
                 index++;
             }
         }
+    }
+
+    public void GetInitialCoordinates(float x, float y) {
+        initialX = x;
+        initialY = y;
+        bugStartingPosition = new Vector3(initialX,initialY,0);
+    }
+
+    public Collider2D GetLastCollidedObject() {
+        return lastCollided;
     }
 
     protected virtual void addPositions()
