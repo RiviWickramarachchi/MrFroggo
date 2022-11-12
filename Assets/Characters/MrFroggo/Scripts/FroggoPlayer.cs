@@ -27,10 +27,13 @@ public class FroggoPlayer : MonoBehaviour
     private int butterflyScore = 8;
     private int fishScore = 10;
     private int spiderScore = 10;
+    private IEnumerator froggoStunRoutine;
 
 
     public enum FrogEffects {
         Normal,
+        FireBugEffect,
+        FireBugEffectStarted,
         ButterflyEffect,
         BeeEffect
     };
@@ -67,14 +70,25 @@ public class FroggoPlayer : MonoBehaviour
 
     }
 
+    IEnumerator FroggoStunEffect() {
+        while(true) {
+            anim.Play("froggo_stun");
+            yield return new WaitForSeconds(5f);
+        }
+
+    }
     private void FroggoEffects() {
-        if(frogEffects == FrogEffects.Normal) {
+        if (frogEffects == FrogEffects.Normal) {
             anim.SetBool("isDizzy",false);
             anim.speed = 1f;
         }
-        if(frogEffects== FrogEffects.ButterflyEffect){
+        if (frogEffects== FrogEffects.ButterflyEffect){
             anim.SetBool("isDizzy",true);
             anim.speed = 0.5f;
+        }
+        if (frogEffects == FrogEffects.FireBugEffect) {
+            StartCoroutine(froggoStunRoutine);
+            frogEffects = FrogEffects.FireBugEffectStarted;
         }
 
         if(currentTimeVal <= timeOfEffect - butterflyEffectTime) {
@@ -143,6 +157,7 @@ public class FroggoPlayer : MonoBehaviour
         playerScore = 0;
         tb.setTime(currentTimeVal);
         gameState = GameStates.Game;
+        froggoStunRoutine = FroggoStunEffect();
     }
 
     private void CollidedWithFroggo(Collider2D collision)
@@ -164,8 +179,8 @@ public class FroggoPlayer : MonoBehaviour
                 if(collision.gameObject.GetComponent<FireBug>().Timer < collision.gameObject.GetComponent<FireBug>().ColorTime)
                 {
                     UpdateScore(fireBugPenalty);
+                    frogEffects = FrogEffects.FireBugEffect;
                     UpdateBugGeneratorPlayer?.Invoke(4);
-                    anim.Play("froggo_stun");
                 }
                 else {
                     UpdateScore(fireBugScore);
@@ -175,10 +190,12 @@ public class FroggoPlayer : MonoBehaviour
         }
 
         if (collision.tag == "Fairy") {
-            if(collision.gameObject.GetComponent<Fairy>().GetLastCollidedObject().tag == "TongueCol")
+            if(collision.transform.parent.gameObject.GetComponent<Fairy>().GetLastCollidedObject().tag == "TongueCol")
             {
-                print("FairyTongueTriggered");
                 anim.Play("froggo_fairyDust");
+                if(frogEffects == FrogEffects.FireBugEffectStarted) {
+                    StopCoroutine(froggoStunRoutine);
+                }
                 frogEffects = FrogEffects.Normal;
                 UpdateBugGeneratorPlayer?.Invoke(6);
             }

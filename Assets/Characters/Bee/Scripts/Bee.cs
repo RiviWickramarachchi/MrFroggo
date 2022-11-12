@@ -69,29 +69,6 @@ public class Bee : FlyMovements
         positions.Add(thirdPos);
         positions.Add(endingPos);
     }
-
-    //private void LerpTest()
-    //{
-    //    interpolateAmt = (interpolateAmt + Time.deltaTime) % 1f;
-
-    //    pointAB.position = Vector3.Lerp(pointA.position, pointB.position, interpolateAmt);
-    //    pointBC.position = Vector3.Lerp(pointB.position, pointC.position, interpolateAmt);
-    //    pointCD.position = Vector3.Lerp(pointC.position, pointD.position, interpolateAmt);
-    //    pointDE.position = Vector3.Lerp(pointD.position, pointE.position, interpolateAmt);
-    //    pointEF.position = Vector3.Lerp(pointE.position, pointF.position, interpolateAmt);
-    //    pointABC.position = Vector3.Lerp(pointAB.position, pointBC.position, interpolateAmt);
-    //    pointBCD.position = Vector3.Lerp(pointBC.position, pointCD.position, interpolateAmt);
-    //    pointCDE.position = Vector3.Lerp(pointCD.position, pointDE.position, interpolateAmt);
-    //    pointDEF.position = Vector3.Lerp(pointDE.position, pointEF.position, interpolateAmt);
-    //    pointABCD.position = Vector3.Lerp(pointABC.position, pointBCD.position, interpolateAmt);
-    //    pointBCDE.position = Vector3.Lerp(pointBCD.position, pointCDE.position, interpolateAmt);
-    //    pointCDEF.position = Vector3.Lerp(pointCDE.position, pointDEF.position, interpolateAmt);
-    //    pointABCDE.position = Vector3.Lerp(pointABCD.position, pointBCDE.position, interpolateAmt);
-    //    pointBCDEF.position = Vector3.Lerp(pointBCDE.position, pointCDEF.position, interpolateAmt);
-    //    pointABCDEF.position = Vector3.Lerp(pointABCDE.position, pointBCDEF.position, interpolateAmt);
-    //} 
-
-
 }
 
 

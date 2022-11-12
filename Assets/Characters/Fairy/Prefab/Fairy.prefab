@@ -214,5 +214,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   anim: {fileID: 9149923243229268905}
+  lastCollided: {fileID: 0}
   waitTime: 3
   send: 1

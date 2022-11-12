@@ -237,7 +237,8 @@ public class BugGenerator : Singleton<BugGenerator>
                 case PlayerStates.PlayerStunned:
                     yield return new WaitForSeconds(5f);
                     InstantiateGoldFish();
-                    playerStates = PlayerStates.Normal;
+                    yield return new WaitForSeconds(8f);
+                    InstantiateFairy();
                     break;
                 case PlayerStates.PlayerNerfed:
                     InstantiateFairy();

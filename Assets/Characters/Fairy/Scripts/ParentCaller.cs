@@ -6,6 +6,7 @@ public class ParentCaller : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        this.transform.parent.gameObject.GetComponent<Fairy>().lastCollided = collision;
         if (collision.tag == "TongueCol")
         {
             print("Hit = TOngue collision_Fairy");
