@@ -16,11 +16,15 @@ public class FroggoPlayer : MonoBehaviour
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text gameOverScoreText;
     [SerializeField] private TMP_Text gameOverHighScoreText;
+    [SerializeField] private TMP_Text bugCoinScoreText;
+    [SerializeField] private TMP_Text boostValue;
     [SerializeField] private GameObject gameOverPanel;
     private float butterflyEffectTime = 10f;
     private float timeOfEffect;
     private float currentTimeVal;
     private int playerScore;
+    private int bugScore;
+    private int totalBugCoins;
     private int beeScore = 4;
     private int flyScore = 5;
     private int fireBugScore = 6;
@@ -145,13 +149,35 @@ public class FroggoPlayer : MonoBehaviour
 
     private void UpdateScore(int score) {
         //do all the bug coin animations here
+        string calcSymbol = "";
         playerScore += score;
         if(playerScore < 0) {
             playerScore = 0;
         }
-        scoreText.text = "SCORE:"+playerScore.ToString("00");
-        //Update BugCoin Score here <--
+        //check if the score is + or -
+        if(score >= 0) {
+            calcSymbol = "+";
+        }
+        else {
+            calcSymbol = "-";
+        }
+        //update bugscore properties
+        bugScore++;
+        bugCoinScoreText.text = bugScore.ToString("00");
         bugCoinAnim.Play("BugCoin");
+        //update score for bug(s) #boost value
+        boostValue.text = calcSymbol+score.ToString();
+        DisplayBoostValue();
+        //update total player score
+        scoreText.text = "SCORE:"+playerScore.ToString("00");
+        Invoke("HideBoostValue",2f);
+    }
+
+    private void DisplayBoostValue() {
+        boostValue.gameObject.SetActive(true);
+    }
+    private void HideBoostValue() {
+        boostValue.gameObject.SetActive(false);
     }
 
     public void InitializeValues() {
@@ -159,6 +185,7 @@ public class FroggoPlayer : MonoBehaviour
         frogEffects = FrogEffects.Normal;
         currentTimeVal = startingTimeVal;
         playerScore = 0;
+        bugScore = 0;
         tb.setTime(currentTimeVal);
         gameState = GameStates.Game;
         froggoStunRoutine = FroggoStunEffect();
@@ -262,6 +289,7 @@ public class FroggoPlayer : MonoBehaviour
 
     private void GameOverState() {
         //change game state and go to game over UI
+        //update bugCoin details here  --> total bug coins available , no of bugCoins Collected
         gameState = GameStates.End;
         TimeIsOver?.Invoke();
         DestroyOnEndState?.Invoke();
@@ -276,6 +304,12 @@ public class FroggoPlayer : MonoBehaviour
             PlayerPrefs.SetInt("HighScore", playerScore);
         }
         gameOverHighScoreText.text = PlayerPrefs.GetInt("HighScore").ToString("00");
+    }
+
+    private void UpdateBugCoinAmount() {
+        totalBugCoins = PlayerPrefs.GetInt("BugCoins");
+        totalBugCoins+= bugScore;
+        PlayerPrefs.SetInt("BugCoins",totalBugCoins);
     }
 
     void OnDisable() {
