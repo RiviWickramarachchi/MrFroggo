@@ -12,6 +12,7 @@ public class FroggoPlayer : MonoBehaviour
     [SerializeField] private float startingTimeVal;
     [SerializeField] private TimerBar tb;
     [SerializeField] private Animator anim;
+    [SerializeField] private Animator bugCoinAnim;
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text gameOverScoreText;
     [SerializeField] private TMP_Text gameOverHighScoreText;
@@ -143,11 +144,14 @@ public class FroggoPlayer : MonoBehaviour
     }
 
     private void UpdateScore(int score) {
+        //do all the bug coin animations here
         playerScore += score;
         if(playerScore < 0) {
             playerScore = 0;
         }
-        scoreText.text = playerScore.ToString("00");
+        scoreText.text = "SCORE:"+playerScore.ToString("00");
+        //Update BugCoin Score here <--
+        bugCoinAnim.Play("BugCoin");
     }
 
     public void InitializeValues() {
