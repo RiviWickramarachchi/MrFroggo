@@ -14,11 +14,16 @@ public class FroggoPlayer : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private Animator bugCoinAnim;
     [SerializeField] private TMP_Text scoreText;
-    [SerializeField] private TMP_Text gameOverScoreText;
-    [SerializeField] private TMP_Text gameOverHighScoreText;
     [SerializeField] private TMP_Text bugCoinScoreText;
     [SerializeField] private TMP_Text boostValue;
+
+    //Game over values
+    [SerializeField] private TMP_Text gameOverScoreText;
+    [SerializeField] private TMP_Text gameOverHighScoreText;
+    [SerializeField] private TMP_Text gameOverBugsCollectedText;
+    [SerializeField] private TMP_Text gameOverTotalBugsCollectedText;
     [SerializeField] private GameObject gameOverPanel;
+
     private float butterflyEffectTime = 10f;
     private float timeOfEffect;
     private float currentTimeVal;
@@ -62,7 +67,8 @@ public class FroggoPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InitializeValues();
+        //InitializeValues();
+        Debug.Log(gameOverPanel.gameObject.transform.Find("Board").gameObject);
     }
     // Update is called once per frame
     void Update()
@@ -189,6 +195,7 @@ public class FroggoPlayer : MonoBehaviour
         tb.setTime(currentTimeVal);
         gameState = GameStates.Game;
         froggoStunRoutine = FroggoStunEffect();
+        totalBugCoins = ResourceLoader.Instance.GetBugCoinValue();
     }
 
     private void CollidedWithFroggo(Collider2D collision)
@@ -295,21 +302,11 @@ public class FroggoPlayer : MonoBehaviour
         DestroyOnEndState?.Invoke();
         gameOverPanel.SetActive(true);
         gameOverScoreText.text = playerScore.ToString("00");
-        DisplayHighScore();
+        gameOverBugsCollectedText.text = bugScore.ToString("00");
+        ResourceLoader.Instance.DisplayHighScore(playerScore, gameOverHighScoreText);
+        ResourceLoader.Instance.UpdateBugCoinAmount(totalBugCoins,bugScore);
+        ResourceLoader.Instance.DisplayTotalBugCoins(gameOverTotalBugsCollectedText);
         Time.timeScale = 0;
-    }
-
-    private void DisplayHighScore() {
-        if(playerScore > PlayerPrefs.GetInt("HighScore",0)) {
-            PlayerPrefs.SetInt("HighScore", playerScore);
-        }
-        gameOverHighScoreText.text = PlayerPrefs.GetInt("HighScore").ToString("00");
-    }
-
-    private void UpdateBugCoinAmount() {
-        totalBugCoins = PlayerPrefs.GetInt("BugCoins");
-        totalBugCoins+= bugScore;
-        PlayerPrefs.SetInt("BugCoins",totalBugCoins);
     }
 
     void OnDisable() {
