@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using TMPro;
 
@@ -23,6 +24,10 @@ public class FroggoPlayer : MonoBehaviour
     [SerializeField] private TMP_Text gameOverBugsCollectedText;
     [SerializeField] private TMP_Text gameOverTotalBugsCollectedText;
     [SerializeField] private GameObject gameOverPanel;
+
+    //Pause Button Sprites
+    [SerializeField] private Sprite[] exitButtonSprites;
+    [SerializeField] private Image exitBtnImage;
 
     private float butterflyEffectTime = 10f;
     private float timeOfEffect;
@@ -67,8 +72,7 @@ public class FroggoPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //InitializeValues();
-        Debug.Log(gameOverPanel.gameObject.transform.Find("Board").gameObject);
+        InitializeValues();
     }
     // Update is called once per frame
     void Update()
@@ -301,12 +305,38 @@ public class FroggoPlayer : MonoBehaviour
         TimeIsOver?.Invoke();
         DestroyOnEndState?.Invoke();
         gameOverPanel.SetActive(true);
+        gameOverPanel.gameObject.transform.Find("ExitSession").gameObject.SetActive(false);
+        gameOverPanel.gameObject.transform.Find("Board").gameObject.SetActive(true);
         gameOverScoreText.text = playerScore.ToString("00");
         gameOverBugsCollectedText.text = bugScore.ToString("00");
         ResourceLoader.Instance.DisplayHighScore(playerScore, gameOverHighScoreText);
         ResourceLoader.Instance.UpdateBugCoinAmount(totalBugCoins,bugScore);
         ResourceLoader.Instance.DisplayTotalBugCoins(gameOverTotalBugsCollectedText);
         Time.timeScale = 0;
+    }
+
+    public void PauseGame() {
+        ChangeExitBtnSprite();
+        gameOverPanel.SetActive(true);
+        gameOverPanel.gameObject.transform.Find("Board").gameObject.SetActive(false);
+        gameOverPanel.gameObject.transform.Find("ExitSession").gameObject.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public void ResumeGame() {
+        ChangeExitBtnSprite();
+        gameOverPanel.gameObject.transform.Find("Board").gameObject.SetActive(false);
+        gameOverPanel.gameObject.transform.Find("ExitSession").gameObject.SetActive(false);
+        gameOverPanel.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    private void ChangeExitBtnSprite() {
+        if(exitBtnImage.sprite == exitButtonSprites[0]) {
+            exitBtnImage.sprite = exitButtonSprites[1];
+            return;
+        }
+        exitBtnImage.sprite = exitButtonSprites[0];
     }
 
     void OnDisable() {
