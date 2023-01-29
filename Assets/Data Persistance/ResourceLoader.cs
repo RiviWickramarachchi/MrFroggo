@@ -30,7 +30,8 @@ public class ResourceLoader : MonoBehaviour
         if(playerScore > this.gameData.highScore) {
             //update Gamedata object
             this.gameData.highScore = playerScore;
-            //PlayerPrefs.SetInt("HighScore", playerScore);
+            //save HS on storeDataLoader instance
+            StoreDataLoader.Instance.highScore = playerScore;
         }
         highscoreText.text = this.gameData.highScore.ToString("00");
     }
@@ -42,6 +43,8 @@ public class ResourceLoader : MonoBehaviour
     public void UpdateBugCoinAmount(int totalBugCoins, int bugScore) {
         totalBugCoins += bugScore;
         this.gameData.bugCoins = totalBugCoins;
+        //save BugCoin amount on storeDataLoader instance
+        StoreDataLoader.Instance.bugCoinAmount = totalBugCoins;
         //save game to save the data
     }
 
@@ -57,6 +60,7 @@ public class ResourceLoader : MonoBehaviour
         //Load any saved data from the file handler
         this.gameData = dataHandler.Load();
         //if no data was found initialize a new game.
+        Debug.Log("loading game data : "+this.gameData); //test
         if(this.gameData == null) {
             Debug.Log("No Game Data found. Initializing new Game data obj");
             NewGame();

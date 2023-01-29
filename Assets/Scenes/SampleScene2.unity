@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9911fd9aedc8d9046a3ebabe64bb0674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 439338725}
+  cam: {fileID: 1585246412}
   parallexEffect: 0
 --- !u!212 &128871296
 SpriteRenderer:
@@ -493,6 +493,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &512154799
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 512154801}
+  - component: {fileID: 512154800}
+  m_Layer: 0
+  m_Name: DATALOADER
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &512154800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512154799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a423c9469bad574495c2d33cf4f99fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fileName: testData.json
+--- !u!4 &512154801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512154799}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 153.1152, y: 144.9663, z: -68.16974}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &672593406 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 6568156258820905184, guid: ad755c0871acd264dac772c399b2ea5c, type: 3}
@@ -717,7 +762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9911fd9aedc8d9046a3ebabe64bb0674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 439338725}
+  cam: {fileID: 1585246412}
   parallexEffect: 1
 --- !u!212 &1018696549
 SpriteRenderer:
@@ -804,6 +849,53 @@ Transform:
   - {fileID: 1646120635}
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1205524874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1205524876}
+  - component: {fileID: 1205524875}
+  m_Layer: 0
+  m_Name: 'TestObject '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1205524875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205524874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6fc06fdec7d5ef44b85c8200c416611, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  themeObj:
+  - {fileID: 11400000, guid: 376151bd6aecb494fbef5d783ede9ffa, type: 2}
+  - {fileID: 11400000, guid: 2da5ddd38ca857046af19f34f0026890, type: 2}
+--- !u!4 &1205524876
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205524874}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 153.1152, y: 144.9663, z: -68.16974}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1222888591 stripped
 GameObject:
@@ -1482,6 +1574,10 @@ PrefabInstance:
     - target: {fileID: 9149923244458269410, guid: f4327ed9678ba3449b96a920f3cf24db, type: 3}
       propertyPath: m_Name
       value: Fairy
+      objectReference: {fileID: 0}
+    - target: {fileID: 9149923244458269410, guid: f4327ed9678ba3449b96a920f3cf24db, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9149923244458269410, guid: f4327ed9678ba3449b96a920f3cf24db, type: 3}
       propertyPath: m_TagString

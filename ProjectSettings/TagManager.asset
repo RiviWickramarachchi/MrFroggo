@@ -12,6 +12,8 @@ TagManager:
   - Butterfly
   - FrogBody
   - Spider
+  - Panel
+  - StoreUI
   layers:
   - Default
   - TransparentFX

@@ -2,17 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AdFree : MonoBehaviour
+[CreateAssetMenu(fileName ="AdFree", menuName ="ScriptableObjects/AdFree")]
+public class AdFree : StoreItems
 {
-    // Start is called before the first frame update
-    void Start()
+//    public AdFree() {
+//         purchaseType = PurchaseType.OneTimePurchase;
+//         purchaseState = PurchaseState.Not_Purchased;
+//         itemType = ItemType.ADFREE;
+//         chooseState = ChooseState.NONE;
+//     }
+    public override void ItemPurchase()
     {
-        
+        //purchaseState = PurchaseState.Purchased;
+        //handle coin purchase using a payment gateway
+        purchaseState = PurchaseState.Purchased;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void ItemChoose()
     {
-        
+        //no use for this class
+    }
+
+    public override void ItemDeselect()
+    {
+        //no use for this class
     }
 }

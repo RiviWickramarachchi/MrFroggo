@@ -5,20 +5,25 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="Theme", menuName ="ScriptableObjects/Theme")]
 public class Themes : StoreItems
 {
-
-    private enum PurchaseState { Purchased, Not_Purchased }
-    private PurchaseState purchaseState;
-
-    private enum ChooseState { Chosen, Not_Chosen}
-    private ChooseState chooseState;
+    // public Themes() {
+    //     purchaseType = PurchaseType.OneTimePurchase;
+    //     purchaseState = PurchaseState.Not_Purchased;
+    //     itemType = ItemType.THEME;
+    //     chooseState = ChooseState.Not_Chosen;
+    // }
 
     public override void ItemPurchase()
     {
         purchaseState = PurchaseState.Purchased;
     }
-    public override void SetItemValues(int bugCoin)
-    {
-        itemType = ItemType.THEME;
 
+    public override void ItemChoose()
+    {
+        chooseState = ChooseState.Chosen;
     }
+    public override void ItemDeselect()
+    {
+        chooseState = ChooseState.Not_Chosen;
+    }
+
 }

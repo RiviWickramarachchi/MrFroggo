@@ -2,17 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinPurchase : MonoBehaviour
+[CreateAssetMenu(fileName ="CoinPurchase", menuName ="ScriptableObjects/CoinPurchase")]
+public class CoinPurchase : StoreItems
 {
-    // Start is called before the first frame update
-    void Start()
+//    public CoinPurchase() {
+//         purchaseType = PurchaseType.RecurringPurchase;
+//         purchaseState = PurchaseState.NONE;
+//         itemType = ItemType.BUYCOINS;
+//         chooseState = ChooseState.NONE;
+//    }
+
+    public override void ItemPurchase()
     {
-        
+        //purchaseState = PurchaseState.Purchased;
+        //handle coin purchase using a payment gateway
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void ItemChoose()
     {
-        
+        //no use for this class
     }
+
+    public override void ItemDeselect()
+    {
+        //no use for this class
+    }
+
 }
