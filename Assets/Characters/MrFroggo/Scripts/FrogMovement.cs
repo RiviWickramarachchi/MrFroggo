@@ -22,7 +22,7 @@ public class FrogMovement : MonoBehaviour
     void Update()
     {
         xDir = Input.acceleration.x * moveSpeed;
-        transform.position = new Vector2(Mathf.Clamp(transform.position.x,11.41f,37.03f), transform.position.y);
+        transform.position = new Vector2(Mathf.Clamp(transform.position.x,7f,41.5f), transform.position.y);
         if((xDir >= -3f) && (xDir <= 3f))
         {
             psr.pivot = new Vector3(0f, 0f, 0f);

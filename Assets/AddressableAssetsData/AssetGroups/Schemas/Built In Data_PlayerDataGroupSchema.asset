@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be3b251cb20d6a74d8bd193412a0729c, type: 3}
-  m_Name: CoinPurchaseTest
+  m_Script: {fileID: 11500000, guid: b1487f5d688e4f94f828f879d599dbdc, type: 3}
+  m_Name: Built In Data_PlayerDataGroupSchema
   m_EditorClassIdentifier: 
-  itemID: 4
-  coinsToUnlock: 0
-  itemName: COIN PURCHASE
-  purchaseType: 1
-  purchaseState: 2
-  chooseState: 2
-  itemType: 2
+  m_Group: {fileID: 11400000, guid: 0a8fc6230a8232a48a4423d08fbc26fe, type: 2}
+  m_IncludeResourcesFolders: 1
+  m_IncludeBuildSettingsScenes: 1

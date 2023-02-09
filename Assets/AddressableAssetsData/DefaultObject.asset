@@ -9,13 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be3b251cb20d6a74d8bd193412a0729c, type: 3}
-  m_Name: CoinPurchaseTest
+  m_Script: {fileID: 11500000, guid: 3a189bb168d8d90478a09ea08c2f3d72, type: 3}
+  m_Name: DefaultObject
   m_EditorClassIdentifier: 
-  itemID: 4
-  coinsToUnlock: 0
-  itemName: COIN PURCHASE
-  purchaseType: 1
-  purchaseState: 2
-  chooseState: 2
-  itemType: 2
+  m_AddressableAssetSettingsGuid: 11f77559052283e4ab508015fe9d8ff2

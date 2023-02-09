@@ -9,6 +9,8 @@ public class StoreDataLoader : MonoBehaviour,IDataPersistance
     public int bugCoinAmount;
     public int highScore;
 
+    public int setSceneId;
+
     void Awake()
     {
         if(Instance != null){
@@ -22,6 +24,7 @@ public class StoreDataLoader : MonoBehaviour,IDataPersistance
     {
         this.highScore = data.highScore;
         this.bugCoinAmount = data.bugCoins;
+        this.setSceneId = data.setSceneId;
         //load store information from the game data save file to storeItems List
         if(data.storeItems.Count != 0) {
             Debug.Log("Loading data.storeItems to this.storeItems");
@@ -37,5 +40,7 @@ public class StoreDataLoader : MonoBehaviour,IDataPersistance
         data.storeItems = this.storeItems;
         data.highScore = this.highScore;
         data.bugCoins = this.bugCoinAmount;
+        data.setSceneId = this.setSceneId;
+
     }
 }

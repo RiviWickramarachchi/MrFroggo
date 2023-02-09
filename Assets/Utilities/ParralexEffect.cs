@@ -5,11 +5,12 @@ using UnityEngine;
 public class ParralexEffect : MonoBehaviour
 {
     private float startPos, length;
-    public GameObject cam;
+    private GameObject cam;
     public float parallexEffect;
     // Start is called before the first frame update
     void Start()
     {
+        cam = GameObject.FindGameObjectWithTag("MainCamera");
         startPos = transform.position.x;
         length = GetComponent<SpriteRenderer>().bounds.size.x;
 

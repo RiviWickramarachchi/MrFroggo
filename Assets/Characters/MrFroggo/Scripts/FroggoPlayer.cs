@@ -29,22 +29,25 @@ public class FroggoPlayer : MonoBehaviour
     [SerializeField] private Sprite[] exitButtonSprites;
     [SerializeField] private Image exitBtnImage;
 
+    //Bug Scores
+    [SerializeField] private int beeScore = 1;
+    [SerializeField] private int flyScore = 4;
+    [SerializeField] private int fireBugScore = 6;
+    [SerializeField] private int fireBugPenalty = -6;
+    [SerializeField] private int butterflyScore = 5;
+    [SerializeField] private int fishScore = 3;
+    [SerializeField] private int spiderScore = 7;
+
+    //Private Variables Non-Serialized
     private float butterflyEffectTime = 10f;
     private float timeOfEffect;
     private float currentTimeVal;
     private int playerScore;
     private int bugScore;
     private int totalBugCoins;
-    private int beeScore = 4;
-    private int flyScore = 5;
-    private int fireBugScore = 6;
-    private int fireBugPenalty = -2;
-    private int butterflyScore = 8;
-    private int fishScore = 10;
-    private int spiderScore = 10;
     private IEnumerator froggoStunRoutine;
 
-
+    //Public Variables
     public enum FrogEffects {
         Normal,
         FireBugEffect,

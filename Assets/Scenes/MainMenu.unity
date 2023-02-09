@@ -668,6 +668,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e99bf29db2d03d448be8474d88a40220, type: 2}
   - {fileID: 11400000, guid: b1d8f11cf3cbec34aa8312ef2acde079, type: 2}
   bugCoinAmount: 0
+  highScore: 0
+  setSceneId: 0
 --- !u!4 &649382749
 Transform:
   m_ObjectHideFlags: 0
@@ -2018,6 +2020,10 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4280013567
       objectReference: {fileID: 0}
+    - target: {fileID: 934384195073289748, guid: 48ef2abb33964e94abd72f2f9f569762, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -3.114502
+      objectReference: {fileID: 0}
     - target: {fileID: 934384195331712643, guid: 48ef2abb33964e94abd72f2f9f569762, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 3
@@ -2055,9 +2061,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1791477958}
     - target: {fileID: 934384195425028341, guid: 48ef2abb33964e94abd72f2f9f569762, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 934384195425028341, guid: 48ef2abb33964e94abd72f2f9f569762, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1791477958}
+    - target: {fileID: 934384195425028341, guid: 48ef2abb33964e94abd72f2f9f569762, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChooseBtnClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 934384195425028341, guid: 48ef2abb33964e94abd72f2f9f569762, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Store, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 934384195425028341, guid: 48ef2abb33964e94abd72f2f9f569762, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 934384195700824832, guid: 48ef2abb33964e94abd72f2f9f569762, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class Store : MonoBehaviour
 {
-    private List<StoreItems> storeItems;
+    //private 
+    public List<StoreItems> storeItems;
     [SerializeField] private Image itemImage;
     [SerializeField] private Button nextBtn;
     [SerializeField] private Button prevBtn;
@@ -16,13 +19,19 @@ public class Store : MonoBehaviour
     [SerializeField] private TMP_Text requiredCoinsText;
     [SerializeField] private TMP_Text infoText2;
     GameObject panel;
+    public static event Action<int> OnChooseBtnClick;
     private int bugCoinAmount;
+    private int setSceneId;
 
-    private int itemCount;
+    public int itemCount;
 
     void Start() {
         this.storeItems = StoreDataLoader.Instance.storeItems;
         this.bugCoinAmount = StoreDataLoader.Instance.bugCoinAmount;
+        this.setSceneId = StoreDataLoader.Instance.setSceneId;
+        foreach(StoreItems item in storeItems) {
+            Debug.Log(item);
+        }
     }
 
     public void DisplayStore() {
@@ -58,6 +67,7 @@ public class Store : MonoBehaviour
             GetItemDetails(nextItem);
             prevBtn.interactable = true;
         }
+        Debug.Log(itemCount);
     }
     public void ShowPreviousItem() {
         itemCount--;
@@ -69,17 +79,25 @@ public class Store : MonoBehaviour
             GetItemDetails(prevItem);
             nextBtn.interactable = true;
         }
-
+        Debug.Log(itemCount);
     }
 
     public void ChooseBtnClicked() {
         //get ID of the item and make all the choose items not choose
+        Debug.Log("ITEM COUNT VALUE : "+itemCount);
         StoreItems item = storeItems[itemCount];
         int itemId = item.itemID;
         foreach(StoreItems storeItem in storeItems) {
             if(storeItem.chooseState != StoreItems.ChooseState.NONE) {
                 if(storeItem.itemID == itemId) {
                     storeItem.ItemChoose();
+                    //set scene ID to chosen scene ID and invoke addressable method to load new scene
+                    this.setSceneId = itemId;
+                    StoreDataLoader.Instance.setSceneId = this.setSceneId;
+                    Debug.Log("Current Scene ID : "+ setSceneId);
+                    if(SceneManager.GetActiveScene().buildIndex == 1) {
+                        OnChooseBtnClick?.Invoke(this.setSceneId);
+                    }
                 }
                 else {
                     storeItem.ItemDeselect();
