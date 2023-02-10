@@ -11,15 +11,24 @@ public class FrogActions : MonoBehaviour
     //[SerializeField] private GameObject frogPupilObj;
     [SerializeField] private GameObject tongueObj;
     [SerializeField] private FroggoPlayer froggoPlayer;
+    [SerializeField] private SpriteRenderer fogSr;
     private Animator anim;
     private SpriteRenderer sr;
     public static event Action<Collider2D> FrogCollision;
+    private float fogAlphaVal;
+    private float fogAlphaProgress = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
+        fogAlphaVal = 0;
+    }
+
+    void OnEnable() {
+        FroggoPlayer.OnFlyCatch += FogValueIncreased;
+        FroggoPlayer.OnFairyCatch += ResetFogValue;
     }
 
     // Update is called once per frame
@@ -134,6 +143,36 @@ public class FrogActions : MonoBehaviour
         }
     }
 
+    IEnumerator FogIncrease() {
+        while(fogAlphaVal > fogAlphaProgress) {
+            Debug.Log(fogAlphaProgress);
+            fogAlphaProgress += Time.deltaTime;
+            fogSr.color = new Color(fogSr.color.r,fogSr.color.g,fogSr.color.b,fogAlphaProgress);
+            yield return null;
+        }
+    }
+
+    IEnumerator FogDecrease() {
+        while(fogAlphaVal < fogAlphaProgress) {
+            Debug.Log(fogSr.color.a);
+            fogAlphaProgress -= Time.deltaTime;
+            fogSr.color = new Color(fogSr.color.r,fogSr.color.g,fogSr.color.b,fogAlphaProgress);
+            yield return null;
+        }
+    }
+
+
+
+    public void FogValueIncreased(float newVal) {
+        fogAlphaVal += newVal;
+        StartCoroutine(FogIncrease());
+    }
+
+    public void ResetFogValue() {
+        fogAlphaVal = 0;
+        StartCoroutine(FogDecrease());
+    }
+
     IEnumerator waitForAnimFinish(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
@@ -145,5 +184,10 @@ public class FrogActions : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) {
         FrogCollision?.Invoke(collision);
+    }
+
+    void OnDisable() {
+        FroggoPlayer.OnFlyCatch -= FogValueIncreased;
+        FroggoPlayer.OnFairyCatch -= ResetFogValue;
     }
 }

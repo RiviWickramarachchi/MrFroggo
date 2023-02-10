@@ -45,6 +45,7 @@ public class FroggoPlayer : MonoBehaviour
     private int playerScore;
     private int bugScore;
     private int totalBugCoins;
+    private float fogValue;
     private IEnumerator froggoStunRoutine;
 
     //Public Variables
@@ -67,6 +68,8 @@ public class FroggoPlayer : MonoBehaviour
     public static event Action<int> UpdateBugGeneratorScoreState;
     public static event Action DestroyOnEndState;
     public static event Action TimeIsOver;
+    public static event Action<float> OnFlyCatch;
+    public static event Action OnFairyCatch;
 
     void OnEnable() {
         FrogActions.FrogCollision += CollidedWithFroggo;
@@ -207,17 +210,18 @@ public class FroggoPlayer : MonoBehaviour
 
     private void CollidedWithFroggo(Collider2D collision)
     {
-        if (collision.tag == "Fly") {
+        if (collision.CompareTag("Fly")) {
             if(collision.gameObject.GetComponent<FlyMovements>().GetLastCollidedObject().tag == "TongueCol")
             {
-                 print("Hit = Fly");
+                print("Hit = Fly");
                 UpdateScore(flyScore);
                 AdjustTime(10.0f);
                 tb.setAnimations("boost");
+                OnFlyCatch?.Invoke(0.1f);
             }
         }
 
-        if(collision.tag == "FireBug") {
+        if(collision.CompareTag("FireBug")) {
             if(collision.gameObject.GetComponent<FireBug>().GetLastCollidedObject().tag == "TongueCol")
             {
                 print("FireBugTongueTriggered");
@@ -234,7 +238,7 @@ public class FroggoPlayer : MonoBehaviour
             }
         }
 
-        if (collision.tag == "Fairy") {
+        if (collision.CompareTag("Fairy")) {
             if(collision.transform.parent.gameObject.GetComponent<Fairy>().GetLastCollidedObject().tag == "TongueCol")
             {
                 anim.Play("froggo_fairyDust");
@@ -243,17 +247,18 @@ public class FroggoPlayer : MonoBehaviour
                 }
                 frogEffects = FrogEffects.Normal;
                 UpdateBugGeneratorPlayer?.Invoke(6);
+                OnFairyCatch?.Invoke();
             }
 
         }
 
-        if(collision.tag == "GoldFish"){
+        if(collision.CompareTag("GoldFish")){
             UpdateScore(fishScore);
             AdjustTime(20.0f);
             tb.setAnimations("boost");
         }
 
-        if(collision.tag == "Butterfly") {
+        if(collision.CompareTag("Butterfly")) {
             if(collision.gameObject.GetComponent<Butterfly>().GetLastCollidedObject().tag == "TongueCol")
             {
                 UpdateScore(butterflyScore);
@@ -265,7 +270,7 @@ public class FroggoPlayer : MonoBehaviour
             }
         }
 
-        if(collision.tag == "Bee") {
+        if(collision.CompareTag("Bee")) {
             if(collision.gameObject.GetComponent<Bee>().GetLastCollidedObject().tag == "TongueCol")
             {
                 UpdateScore(beeScore);
@@ -280,13 +285,13 @@ public class FroggoPlayer : MonoBehaviour
 
     private void CollisionsWithSpider(Collider2D collision) {
         Debug.Log("Spider Collision actions are taken here");
-        if(collision.tag == "TongueCol") {
+        if(collision.CompareTag("TongueCol")) {
             UpdateScore(spiderScore);
             AdjustTime(10.0f);
             tb.setAnimations("boost");
         }
 
-        if(collision.tag == "FrogBody") {
+        if(collision.CompareTag("FrogBody")) {
             AdjustTime(-10.0f);
             anim.Play("froggo_bleed");
         }
