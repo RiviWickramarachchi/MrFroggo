@@ -231,6 +231,8 @@ public class FroggoPlayer : MonoBehaviour
                 UpdateScore(ladyBugScore);
                 AdjustTime(7.0f);
                 tb.setAnimations("boost");
+                frogEffects = FrogEffects.LadyBugEffect;
+                UpdateBugGeneratorPlayer?.Invoke(5);
 
             }
         }

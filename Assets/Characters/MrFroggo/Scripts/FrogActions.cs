@@ -48,91 +48,15 @@ public class FrogActions : MonoBehaviour
                 //print(sprite.name);
                 string animSprite = sprite.name;
                 //anim.SetBool("tongueOut", true);
-                if(froggoPlayer.GetFrogEffect() == 2) {
-                    switch(animSprite)
-                    {
-                        case "idle_1":
-                            anim.Play("froggo_bee_tongue1");
-                            break;
-                        case "idle_2":
-                            anim.Play("froggo_bee_tongue2");
-                            break;
-                        case "idle_3":
-                            anim.Play("froggo_bee_tongue3");
-                            break;
-                        case "idle_4":
-                            anim.Play("froggo_bee_tongue4");
-                            break;
-                        case "idle_5":
-                            anim.Play("froggo_bee_tongue5");
-                            break;
-                        case "idle_6":
-                            anim.Play("froggo_bee_tongue6");
-                            break;
-                        case "idle_7":
-                            anim.Play("froggo_bee_tongue7");
-                            break;
-                        case "idle_8":
-                            anim.Play("froggo_bee_tongue8");
-                            break;
-                        case "idle_9":
-                            anim.Play("froggo_bee_tongue9");
-                            break;
-                        case "idle_10":
-                            anim.Play("froggo_bee_tongue10");
-                            break;
-                        case "idle_11":
-                            anim.Play("froggo_bee_tongue11");
-                            break;
-                        case "idle_12":
-                            anim.Play("froggo_bee_tongue12");
-                            break;
-                        default:
-                            break;
-                    }
+                if(froggoPlayer.GetFrogEffect() == 1) {
+                    NormalTongueActions (animSprite);
                 }
-                switch(animSprite)
-                {
-                    case "idle_1":
-                        anim.Play("froggo_tongue1");
-                        break;
-                    case "idle_2":
-                        anim.Play("froggo_tongue2");
-                        break;
-                    case "idle_3":
-                        anim.Play("froggo_tongue3");
-                        break;
-                    case "idle_4":
-                        anim.Play("froggo_tongue4");
-                        break;
-                    case "idle_5":
-                        anim.Play("froggo_tongue5");
-                        break;
-                    case "idle_6":
-                        anim.Play("froggo_tongue6");
-                        break;
-                    case "idle_7":
-                        anim.Play("froggo_tongue7");
-                        break;
-                    case "idle_8":
-                        anim.Play("froggo_tongue8");
-                        break;
-                    case "idle_9":
-                        anim.Play("froggo_tongue9");
-                        break;
-                    case "idle_10":
-                        anim.Play("froggo_tongue10");
-                        break;
-                    case "idle_11":
-                        anim.Play("froggo_tongue11");
-                        break;
-                    case "idle_12":
-                        anim.Play("froggo_tongue12");
-                        break;
-                    default:
-                        break;
+                else if(froggoPlayer.GetFrogEffect() == 2) {
+                    BeeEffectTongueActions(animSprite);
                 }
-
+                else if(froggoPlayer.GetFrogEffect() == 3) {
+                    LadyBugEffectTongueActions(animSprite);
+                }
             }
             if (touch.phase == TouchPhase.Ended)
             {
@@ -140,6 +64,180 @@ public class FrogActions : MonoBehaviour
                 //anim.SetBool("tongueOut", false);
             }
 
+        }
+    }
+
+    private void BeeEffectTongueActions(string animSprite) {
+
+        switch(animSprite)
+        {
+            case "idle_1":
+                anim.Play("froggo_bee_tongue1");
+                break;
+            case "idle_2":
+                anim.Play("froggo_bee_tongue2");
+                break;
+            case "idle_3":
+                anim.Play("froggo_bee_tongue3");
+                 break;
+            case "idle_4":
+                anim.Play("froggo_bee_tongue4");
+                break;
+            case "idle_5":
+                anim.Play("froggo_bee_tongue5");
+                break;
+            case "idle_6":
+                anim.Play("froggo_bee_tongue6");
+                break;
+            case "idle_7":
+                anim.Play("froggo_bee_tongue7");
+                break;
+            case "idle_8":
+                anim.Play("froggo_bee_tongue8");
+                break;
+            case "idle_9":
+                anim.Play("froggo_bee_tongue9");
+                break;
+            case "idle_10":
+                anim.Play("froggo_bee_tongue10");
+                break;
+            case "idle_11":
+                anim.Play("froggo_bee_tongue11");
+                break;
+            case "idle_12":
+                anim.Play("froggo_bee_tongue12");
+                break;
+            default:
+                break;
+        }
+        switch(animSprite)
+        {
+            case "idle_1":
+                anim.Play("froggo_tongue1");
+                break;
+            case "idle_2":
+                anim.Play("froggo_tongue2");
+                break;
+            case "idle_3":
+                anim.Play("froggo_tongue3");
+                break;
+            case "idle_4":
+                anim.Play("froggo_tongue4");
+                break;
+            case "idle_5":
+                anim.Play("froggo_tongue5");
+                break;
+            case "idle_6":
+                anim.Play("froggo_tongue6");
+                break;
+            case "idle_7":
+                anim.Play("froggo_tongue7");
+                break;
+            case "idle_8":
+                anim.Play("froggo_tongue8");
+                break;
+            case "idle_9":
+                anim.Play("froggo_tongue9");
+                break;
+            case "idle_10":
+                anim.Play("froggo_tongue10");
+                break;
+            case "idle_11":
+                anim.Play("froggo_tongue11");
+                break;
+            case "idle_12":
+                anim.Play("froggo_tongue12");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void LadyBugEffectTongueActions(string animSprite) {
+        switch(animSprite)
+        {
+            case "idle_1":
+                anim.Play("froggo_long_tongue1");
+                break;
+            case "idle_2":
+                anim.Play("froggo_long_tongue2");
+                break;
+            case "idle_3":
+                anim.Play("froggo_long_tongue3");
+                break;
+            case "idle_4":
+                anim.Play("froggo_long_tongue4");
+                break;
+            case "idle_5":
+                anim.Play("froggo_long_tongue5");
+                break;
+            case "idle_6":
+                anim.Play("froggo_long_tongue6");
+                break;
+            case "idle_7":
+                anim.Play("froggo_long_tongue7");
+                break;
+            case "idle_8":
+                anim.Play("froggo_long_tongue8");
+                break;
+            case "idle_9":
+                anim.Play("froggo_long_tongue9");
+                break;
+            case "idle_10":
+                anim.Play("froggo_long_tongue10");
+                break;
+            case "idle_11":
+                anim.Play("froggo_long_tongue11");
+                break;
+            case "idle_12":
+                anim.Play("froggo_long_tongue12");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void NormalTongueActions (string animSprite) {
+         switch(animSprite)
+        {
+            case "idle_1":
+                anim.Play("froggo_tongue1");
+                break;
+            case "idle_2":
+                anim.Play("froggo_tongue2");
+                break;
+            case "idle_3":
+                anim.Play("froggo_tongue3");
+                break;
+            case "idle_4":
+                anim.Play("froggo_tongue4");
+                break;
+            case "idle_5":
+                anim.Play("froggo_tongue5");
+                break;
+            case "idle_6":
+                anim.Play("froggo_tongue6");
+                break;
+            case "idle_7":
+                anim.Play("froggo_tongue7");
+                break;
+            case "idle_8":
+                anim.Play("froggo_tongue8");
+                break;
+            case "idle_9":
+                anim.Play("froggo_tongue9");
+                break;
+            case "idle_10":
+                anim.Play("froggo_tongue10");
+                break;
+            case "idle_11":
+                anim.Play("froggo_tongue11");
+                break;
+            case "idle_12":
+                anim.Play("froggo_tongue12");
+                break;
+            default:
+                break;
         }
     }
 
