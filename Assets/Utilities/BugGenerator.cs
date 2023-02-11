@@ -9,10 +9,11 @@ public class BugGenerator : Singleton<BugGenerator>
 {
     [SerializeField] private int flyCount;
     [SerializeField] private int fireBugCount;
-    [SerializeField] private int maxNoOfFliesAllowed = 9;
+    [SerializeField] private int maxNoOfFliesAllowed = 5;
     [SerializeField] private int maxNoOfButterfliesAllowed = 2;
+    [SerializeField] private int maxNoOfLadyBugsAllowed = 1;
     [SerializeField] private int maxNoOfFirebugsAllowed = 6;
-    [SerializeField] private int maxNoOfBeesAllowed = 5;
+    [SerializeField] private int maxNoOfBeesAllowed = 10;
     [SerializeField] private int maxNoOfSpidersAllowed = 4;
     [SerializeField] private GameObject flies;
     [SerializeField] private GameObject fireBugs;
@@ -21,6 +22,7 @@ public class BugGenerator : Singleton<BugGenerator>
     [SerializeField] private GameObject fairy;
     [SerializeField] private GameObject spiders;
     [SerializeField] private GameObject bees;
+    [SerializeField] private GameObject ladyBug;
     private float minX = 12f;
     private float maxX = 40f;
     private float minY = 0f;
@@ -122,6 +124,12 @@ public class BugGenerator : Singleton<BugGenerator>
         print("butterfly instantiated");
     }
 
+    private void InstantiateLadyBug() {
+        float x = transform.position.x + 8f;
+        float y = 6f;
+        Instantiate(ladyBug, new Vector3(x,y,0), Quaternion.identity);
+    }
+
     private void InstantiateBee() {
         float y = GenerateYPos(minY,maxY);
         Instantiate(bees, new Vector3(50f,y, 0), Quaternion.identity);
@@ -135,7 +143,7 @@ public class BugGenerator : Singleton<BugGenerator>
 
     private void InstantiateGoldFish() {
         float x = GenerateXPos(minX, maxX);
-        Instantiate(goldFish, new Vector3(x, -5.36f, 0), Quaternion.identity);
+        Instantiate(goldFish, new Vector3(x, -6f, 0), Quaternion.identity);
         print("Goldfish instantiated");
     }
 
@@ -147,6 +155,9 @@ public class BugGenerator : Singleton<BugGenerator>
     private int GetCurrentFlyCount() {
         return GameObject.FindGameObjectsWithTag("Fly").Length;
     }
+    private int GetCurrentLadyBugCount() {
+        return GameObject.FindGameObjectsWithTag("LadyBug").Length;
+    }
     private int GetCurrentButterflyCount() {
         return GameObject.FindGameObjectsWithTag("Butterfly").Length;
     }
@@ -154,7 +165,7 @@ public class BugGenerator : Singleton<BugGenerator>
         return GameObject.FindGameObjectsWithTag("FireBug").Length;
     }
 
-    private int GetCurrentBeeCount() { 
+    private int GetCurrentBeeCount() {
          return GameObject.FindGameObjectsWithTag("Bee").Length;
     }
 
@@ -166,8 +177,8 @@ public class BugGenerator : Singleton<BugGenerator>
             switch(timeStates) {
                 case TimeStates.TimeAlmostFinished:
                     yield return new WaitForSeconds(2f);
-                    if(GetCurrentFlyCount() < maxNoOfFliesAllowed) {
-                        InstantiateFlies();
+                    if(GetCurrentBeeCount() < maxNoOfBeesAllowed) {
+                        InstantiateBee();
                     }
                     break;
                 default:
@@ -178,8 +189,12 @@ public class BugGenerator : Singleton<BugGenerator>
             switch(playerScoreStates) {
                 case PlayerScoreStates.ScoreBelow25:
                     yield return new WaitForSeconds(2f);
-                    if(GetCurrentFlyCount() < maxNoOfFliesAllowed) {
-                        InstantiateFlies();
+                    if(GetCurrentBeeCount() < maxNoOfBeesAllowed) {
+                        InstantiateBee();
+                    }
+                    yield return new WaitForSeconds(1f);
+                    if(GetCurrentLadyBugCount() < maxNoOfLadyBugsAllowed) {
+                        InstantiateLadyBug();
                     }
                     break;
                 case PlayerScoreStates.ScoreOver25:
@@ -187,18 +202,24 @@ public class BugGenerator : Singleton<BugGenerator>
                     if(GetCurrentFlyCount() < maxNoOfFliesAllowed) {
                         InstantiateFlies();
                     }
+                    yield return new WaitForSeconds(2f);
+                    if(GetCurrentBeeCount() < maxNoOfBeesAllowed) {
+                        InstantiateBee();
+                    }
                     yield return new WaitForSeconds(1f);
-                    if(GetCurrentButterflyCount() < maxNoOfButterfliesAllowed) {
-                        InstantiateButterfly();
+                    if(GetCurrentLadyBugCount() < maxNoOfLadyBugsAllowed) {
+                        InstantiateLadyBug();
                     }
                     break;
                 case PlayerScoreStates.ScoreOver50:
                     yield return new WaitForSeconds(2f);
+                    InstantiateGoldFish();
                     if(GetCurrentFlyCount() < maxNoOfFliesAllowed) {
                         InstantiateFlies();
                     }
-                    if(GetCurrentFirebugCount() < maxNoOfFirebugsAllowed) {
-                        InstantiateFireBugs();
+                    yield return new WaitForSeconds(1f);
+                    if(GetCurrentBeeCount() < maxNoOfBeesAllowed) {
+                        InstantiateBee();
                     }
                     yield return new WaitForSeconds(1f);
                     if(GetCurrentButterflyCount() < maxNoOfButterfliesAllowed) {
@@ -214,8 +235,8 @@ public class BugGenerator : Singleton<BugGenerator>
                     if(GetCurrentButterflyCount() < maxNoOfButterfliesAllowed) {
                         InstantiateButterfly();
                     }
-                    if(GetCurrentBeeCount() < maxNoOfBeesAllowed) {
-                        InstantiateBee();
+                    if(GetCurrentFlyCount() < maxNoOfFliesAllowed) {
+                        InstantiateFlies();
                     }
                     break;
                 case PlayerScoreStates.ScoreOver100:
@@ -224,8 +245,8 @@ public class BugGenerator : Singleton<BugGenerator>
                         InstantiateFireBugs();
                     }
                     yield return new WaitForSeconds(1f);
-                    if(GetCurrentBeeCount() < maxNoOfBeesAllowed) {
-                        InstantiateBee();
+                    if(GetCurrentFlyCount() < maxNoOfFliesAllowed) {
+                        InstantiateFlies();
                     }
                     yield return new WaitForSeconds(2f);
                     InstantiateSpider();
@@ -321,10 +342,6 @@ public class BugGenerator : Singleton<BugGenerator>
         routine = InGameBugGenerator();
         playerStates = PlayerStates.Normal;
         playerScoreStates = PlayerScoreStates.ScoreBelow25;
-        for (int i = 0; i < flyCount; i++)
-        {
-            InitialSpawn();
-        }
         bugGenStates = BugGenStates.GenerateBugs;
     }
 

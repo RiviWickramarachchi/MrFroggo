@@ -620,7 +620,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &335584386
 MonoBehaviour:
@@ -804,7 +804,7 @@ Transform:
   m_Children:
   - {fileID: 1579568009}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &591483896
 GameObject:
@@ -986,7 +986,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5881110692289796159, guid: 5c2c5ee8af5394b4fabe96c1a58dd2ae, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5881110692289796159, guid: 5c2c5ee8af5394b4fabe96c1a58dd2ae, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3298,11 +3298,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 74abcb15eb0ea86408558df99edb8981, type: 3}
   exitBtnImage: {fileID: 1269822932}
   beeScore: 1
+  ladyBugScore: 2
+  fishScore: 3
   flyScore: 4
+  butterflyScore: 5
   fireBugScore: 6
   fireBugPenalty: -6
-  butterflyScore: 5
-  fishScore: 3
   spiderScore: 7
   frogEffects: 0
   gameState: 0
@@ -3319,7 +3320,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1393187925
 GameObject:
@@ -3633,7 +3634,7 @@ RectTransform:
   - {fileID: 411212363}
   - {fileID: 615204081}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3830,7 +3831,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1737055301
 GameObject:
@@ -4772,7 +4773,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2162431201513475567, guid: 19d2025fb5a929c4ca5c575d91810629, type: 3}
       propertyPath: m_Color.a
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2926414484204606329, guid: 19d2025fb5a929c4ca5c575d91810629, type: 3}
       propertyPath: bees
@@ -4783,9 +4784,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 114463042134952665, guid: fcbaf8ec0d6ed9f4b9755f52e9804d2f, type: 3}
     - target: {fileID: 2926414484204606329, guid: 19d2025fb5a929c4ca5c575d91810629, type: 3}
+      propertyPath: ladyBug
+      value: 
+      objectReference: {fileID: 2876625808487313866, guid: b16abfd464edeb447a2de276dfdb487f, type: 3}
+    - target: {fileID: 2926414484204606329, guid: 19d2025fb5a929c4ca5c575d91810629, type: 3}
       propertyPath: spiders
       value: 
       objectReference: {fileID: 114463042134952665, guid: fcbaf8ec0d6ed9f4b9755f52e9804d2f, type: 3}
+    - target: {fileID: 2926414484204606329, guid: 19d2025fb5a929c4ca5c575d91810629, type: 3}
+      propertyPath: goldFish
+      value: 
+      objectReference: {fileID: 3749780102906239175, guid: 7f7828b5d1e97274d8b2c0835aa7cc9c, type: 3}
     - target: {fileID: 2926414484204606329, guid: 19d2025fb5a929c4ca5c575d91810629, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -4961,7 +4970,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 188370620588943694, guid: 14c4f611411b21649a9aa318af674f4a, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 188370620588943694, guid: 14c4f611411b21649a9aa318af674f4a, type: 3}
       propertyPath: m_LocalPosition.x
