@@ -9,6 +9,11 @@ public class FrogActions : MonoBehaviour
     //Controls the frog tongue animations
 
     //[SerializeField] private GameObject frogPupilObj;
+
+    //Frog Anim Sounds
+    [SerializeField] private AudioSource tongueOutSound;
+    [SerializeField] private AudioSource dizzySound;
+
     [SerializeField] private GameObject tongueObj;
     [SerializeField] private FroggoPlayer froggoPlayer;
     [SerializeField] private SpriteRenderer fogSr;
@@ -47,14 +52,16 @@ public class FrogActions : MonoBehaviour
                 Sprite sprite = sr.sprite;
                 //print(sprite.name);
                 string animSprite = sprite.name;
-                //anim.SetBool("tongueOut", true);
                 if(froggoPlayer.GetFrogEffect() == 1) {
+                    tongueOutSound.Play();
                     NormalTongueActions (animSprite);
                 }
                 else if(froggoPlayer.GetFrogEffect() == 2) {
+                    tongueOutSound.Play();
                     BeeEffectTongueActions(animSprite);
                 }
                 else if(froggoPlayer.GetFrogEffect() == 3) {
+                    tongueOutSound.Play();
                     LadyBugEffectTongueActions(animSprite);
                 }
             }
@@ -269,6 +276,9 @@ public class FrogActions : MonoBehaviour
     public void ResetFogValue() {
         fogAlphaVal = 0;
         StartCoroutine(FogDecrease());
+    }
+    public void PlayDizzySound() {
+        dizzySound.Play();
     }
 
     IEnumerator waitForAnimFinish(float waitTime)

@@ -18,9 +18,7 @@ public class ResourceLoader : MonoBehaviour
         }
         Instance = this;
         GameObject.DontDestroyOnLoad(this.gameObject);
-    }
-
-    void Start() {
+        //load the data here because UI manager wont be able to capture the data when you load it on start
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
         LoadDataToNewScene();
     }

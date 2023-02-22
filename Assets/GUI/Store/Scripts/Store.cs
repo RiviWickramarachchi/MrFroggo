@@ -8,8 +8,6 @@ using System;
 
 public class Store : MonoBehaviour
 {
-    //private 
-    public List<StoreItems> storeItems;
     [SerializeField] private Image itemImage;
     [SerializeField] private Button nextBtn;
     [SerializeField] private Button prevBtn;
@@ -19,6 +17,7 @@ public class Store : MonoBehaviour
     [SerializeField] private TMP_Text requiredCoinsText;
     [SerializeField] private TMP_Text infoText2;
     GameObject panel;
+    public List<StoreItems> storeItems;
     public static event Action<int> OnChooseBtnClick;
     private int bugCoinAmount;
     private int setSceneId;
@@ -33,7 +32,6 @@ public class Store : MonoBehaviour
             Debug.Log(item);
         }
     }
-
     public void DisplayStore() {
         panel = GameObject.FindGameObjectWithTag("Panel");
         //check item type and run the necessary methods depending on it

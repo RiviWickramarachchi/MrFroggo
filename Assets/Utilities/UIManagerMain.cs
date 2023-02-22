@@ -10,6 +10,8 @@ public class UIManagerMain : MonoBehaviour
     private int bugCoins;
     [SerializeField] private TMP_Text totalBugCoinsText;
     [SerializeField] private TMP_Text highscoreText;
+    //audio
+    [SerializeField] AudioSource btnClick;
 
 
     void Start() {
@@ -21,6 +23,10 @@ public class UIManagerMain : MonoBehaviour
         bugCoins = StoreDataLoader.Instance.bugCoinAmount;
         highscoreText.text = "HIGHESTSCORE:"+highscoreValue.ToString("00");
         totalBugCoinsText.text = this.bugCoins.ToString("00");
+    }
+
+    public void ButtonClickSound() {
+        btnClick.Play();
     }
 
 }

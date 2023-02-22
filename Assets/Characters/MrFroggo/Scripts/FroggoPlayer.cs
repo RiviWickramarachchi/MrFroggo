@@ -7,6 +7,12 @@ using TMPro;
 
 public class FroggoPlayer : MonoBehaviour
 {
+
+    //Froggo Sounds
+    [SerializeField] private AudioSource croakSound;
+    [SerializeField] private AudioSource spiderDmgSound;
+    [SerializeField] private AudioSource bugPopSound;
+    [SerializeField] private AudioSource fairyDustSound;
     //Manages the UI actions such as  timebar actions timer actions and win/loss GUI transitions and level actions
     //Player scores etc
     [SerializeField] private int maxTime = 60;
@@ -95,6 +101,7 @@ public class FroggoPlayer : MonoBehaviour
 
     IEnumerator FroggoStunEffect() {
         while(true) {
+            croakSound.Play();
             anim.Play("froggo_stun");
             yield return new WaitForSeconds(5f);
         }
@@ -218,7 +225,7 @@ public class FroggoPlayer : MonoBehaviour
         if (collision.CompareTag("Fly")) {
             if(collision.gameObject.GetComponent<FlyMovements>().GetLastCollidedObject().tag == "TongueCol")
             {
-                print("Hit = Fly");
+                bugPopSound.Play();
                 UpdateScore(flyScore);
                 AdjustTime(12.0f);
                 tb.setAnimations("boost");
@@ -228,6 +235,7 @@ public class FroggoPlayer : MonoBehaviour
         else if (collision.CompareTag("LadyBug")) { 
             if(collision.gameObject.GetComponent<FlyMovements>().GetLastCollidedObject().tag == "TongueCol")
             {
+                bugPopSound.Play();
                 UpdateScore(ladyBugScore);
                 AdjustTime(7.0f);
                 tb.setAnimations("boost");
@@ -239,7 +247,7 @@ public class FroggoPlayer : MonoBehaviour
         else if(collision.CompareTag("FireBug")) {
             if(collision.gameObject.GetComponent<FireBug>().GetLastCollidedObject().tag == "TongueCol")
             {
-                print("FireBugTongueTriggered");
+                bugPopSound.Play();
                 if(collision.gameObject.GetComponent<FireBug>().Timer < collision.gameObject.GetComponent<FireBug>().ColorTime)
                 {
                     UpdateScore(fireBugPenalty);
@@ -255,6 +263,7 @@ public class FroggoPlayer : MonoBehaviour
         else if (collision.CompareTag("Fairy")) {
             if(collision.transform.parent.gameObject.GetComponent<Fairy>().GetLastCollidedObject().tag == "TongueCol")
             {
+                fairyDustSound.Play();
                 anim.Play("froggo_fairyDust");
                 if(frogEffects == FrogEffects.FireBugEffectStarted) {
                     StopCoroutine(froggoStunRoutine);
@@ -266,6 +275,7 @@ public class FroggoPlayer : MonoBehaviour
 
         }
         else if(collision.CompareTag("GoldFish")){
+            bugPopSound.Play();
             UpdateScore(fishScore);
             AdjustTime(8.0f);
             tb.setAnimations("boost");
@@ -273,6 +283,7 @@ public class FroggoPlayer : MonoBehaviour
         else if(collision.CompareTag("Butterfly")) {
             if(collision.gameObject.GetComponent<Butterfly>().GetLastCollidedObject().tag == "TongueCol")
             {
+                bugPopSound.Play();
                 UpdateScore(butterflyScore);
                 AdjustTime(15.0f);
                 tb.setAnimations("boost");
@@ -284,6 +295,7 @@ public class FroggoPlayer : MonoBehaviour
         else if(collision.CompareTag("Bee")) {
             if(collision.gameObject.GetComponent<Bee>().GetLastCollidedObject().tag == "TongueCol")
             {
+                bugPopSound.Play();
                 UpdateScore(beeScore);
                 AdjustTime(5.0f);
                 tb.setAnimations("boost");
@@ -296,6 +308,7 @@ public class FroggoPlayer : MonoBehaviour
     private void CollisionsWithSpider(Collider2D collision) {
         Debug.Log("Spider Collision actions are taken here");
         if(collision.CompareTag("TongueCol")) {
+            bugPopSound.Play();
             UpdateScore(spiderScore);
             AdjustTime(20.0f);
             tb.setAnimations("boost");
@@ -303,6 +316,7 @@ public class FroggoPlayer : MonoBehaviour
 
         if(collision.CompareTag("FrogBody")) {
             AdjustTime(-20.0f);
+            spiderDmgSound.Play();
             anim.Play("froggo_bleed");
         }
     }
