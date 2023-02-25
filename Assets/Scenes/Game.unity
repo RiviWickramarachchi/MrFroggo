@@ -3615,7 +3615,11 @@ MonoBehaviour:
   exitButtonSprites:
   - {fileID: 21300000, guid: 82e0944f7be61c84ea98267819576b7f, type: 3}
   - {fileID: 21300000, guid: 74abcb15eb0ea86408558df99edb8981, type: 3}
+  soundButtonSprites:
+  - {fileID: 21300000, guid: 4bed89d3966b59a4faddbee26f345477, type: 3}
+  - {fileID: 21300000, guid: ba56fdbf150bccd4f8c2f8f3da2fa2f7, type: 3}
   exitBtnImage: {fileID: 1269822932}
+  soundBtnImg: {fileID: 1758901587}
   beeScore: 1
   ladyBugScore: 2
   fishScore: 3
@@ -4865,7 +4869,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4bed89d3966b59a4faddbee26f345477, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ba56fdbf150bccd4f8c2f8f3da2fa2f7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4902,7 +4906,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -4926,7 +4930,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1758901587}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1386461364}
+        m_TargetAssemblyTypeName: FroggoPlayer, Assembly-CSharp
+        m_MethodName: GameSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1790759153
 GameObject:
   m_ObjectHideFlags: 0
@@ -5733,6 +5749,18 @@ PrefabInstance:
     - target: {fileID: 7683172681200048484, guid: 19d2025fb5a929c4ca5c575d91810629, type: 3}
       propertyPath: m_Offset.y
       value: -1.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7683172681200048486, guid: 19d2025fb5a929c4ca5c575d91810629, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7683172681200048486, guid: 19d2025fb5a929c4ca5c575d91810629, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7683172681200048486, guid: 19d2025fb5a929c4ca5c575d91810629, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7683172681200048486, guid: 19d2025fb5a929c4ca5c575d91810629, type: 3}
       propertyPath: m_LocalPosition.x

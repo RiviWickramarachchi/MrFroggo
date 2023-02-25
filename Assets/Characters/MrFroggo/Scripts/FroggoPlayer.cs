@@ -33,7 +33,9 @@ public class FroggoPlayer : MonoBehaviour
 
     //Pause Button Sprites
     [SerializeField] private Sprite[] exitButtonSprites;
+    [SerializeField] private Sprite[] soundButtonSprites;
     [SerializeField] private Image exitBtnImage;
+    [SerializeField] private Image soundBtnImg;
 
     //Bug Scores
     [SerializeField] private int beeScore = 1;
@@ -53,6 +55,7 @@ public class FroggoPlayer : MonoBehaviour
     private int bugScore;
     private int totalBugCoins;
     private float fogValue;
+    private bool isMuted; //to mute/unmute game sound
     private IEnumerator froggoStunRoutine;
 
     //Public Variables
@@ -210,6 +213,7 @@ public class FroggoPlayer : MonoBehaviour
 
     public void InitializeValues() {
         gameOverPanel.SetActive(false);
+        isMuted = false;
         frogEffects = FrogEffects.Normal;
         currentTimeVal = startingTimeVal;
         playerScore = 0;
@@ -361,6 +365,28 @@ public class FroggoPlayer : MonoBehaviour
         gameOverPanel.gameObject.transform.Find("ExitSession").gameObject.SetActive(false);
         gameOverPanel.SetActive(false);
         Time.timeScale = 1;
+    }
+
+    public void GameSound() {
+        ChangeSoundBtnSprite();
+        isMuted = !isMuted;
+        MuteAndUnmute(isMuted);
+    }
+
+    private void MuteAndUnmute(bool val) {
+        if(val == true) {
+            AudioListener.volume = 0;
+        }
+        else
+            AudioListener.volume = 1;
+    }
+
+    private void ChangeSoundBtnSprite() {
+        if(soundBtnImg.sprite == soundButtonSprites[0]) {
+            soundBtnImg.sprite = soundButtonSprites[1];
+            return;
+        }
+        soundBtnImg.sprite = soundButtonSprites[0];
     }
 
     private void ChangeExitBtnSprite() {
