@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PirateRetirementPlan
   m_EditorClassIdentifier: 
   itemID: 2
-  coinsToUnlock: 20
+  coinsToUnlock: 2500
   itemName: PIRATE RETIREMENT PLAN
   purchaseType: 0
   purchaseState: 1

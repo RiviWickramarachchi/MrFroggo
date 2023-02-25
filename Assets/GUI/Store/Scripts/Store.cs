@@ -118,6 +118,7 @@ public class Store : MonoBehaviour
         if(item.purchaseType == StoreItems.PurchaseType.RecurringPurchase) {
             //show coin
             //show buy button
+            HideRequiredCoinsText();
             itemImage.sprite = StoreItemAssets.Instance.buyCoins;
             chooseBtn.gameObject.SetActive(false);
             buyBtn.gameObject.SetActive(true);
