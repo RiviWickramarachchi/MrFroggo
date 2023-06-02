@@ -13,6 +13,11 @@ public class FroggoPlayer : MonoBehaviour
     [SerializeField] private AudioSource spiderDmgSound;
     [SerializeField] private AudioSource bugPopSound;
     [SerializeField] private AudioSource fairyDustSound;
+
+    //Device Vibration Settings
+    [SerializeField] private int vibrateTime = 100;
+    [SerializeField] private int vibrationAmplitude = 40;
+
     //Manages the UI actions such as  timebar actions timer actions and win/loss GUI transitions and level actions
     //Player scores etc
     [SerializeField] private int maxTime = 60;
@@ -226,6 +231,7 @@ public class FroggoPlayer : MonoBehaviour
 
     private void CollidedWithFroggo(Collider2D collision)
     {
+        DeviceVibrate.VibrateWithAmp(vibrateTime, vibrationAmplitude); //vibrates device on collision
         if (collision.CompareTag("Fly")) {
             if(collision.gameObject.GetComponent<FlyMovements>().GetLastCollidedObject().tag == "TongueCol")
             {
@@ -236,7 +242,7 @@ public class FroggoPlayer : MonoBehaviour
                 OnFlyCatch?.Invoke(0.1f);
             }
         }
-        else if (collision.CompareTag("LadyBug")) { 
+        else if (collision.CompareTag("LadyBug")) {
             if(collision.gameObject.GetComponent<FlyMovements>().GetLastCollidedObject().tag == "TongueCol")
             {
                 bugPopSound.Play();
@@ -310,6 +316,7 @@ public class FroggoPlayer : MonoBehaviour
     }
 
     private void CollisionsWithSpider(Collider2D collision) {
+        DeviceVibrate.VibrateWithAmp(vibrateTime, vibrationAmplitude); //vibrates device on collision
         Debug.Log("Spider Collision actions are taken here");
         if(collision.CompareTag("TongueCol")) {
             bugPopSound.Play();

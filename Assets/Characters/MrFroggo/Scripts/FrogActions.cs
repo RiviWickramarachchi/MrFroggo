@@ -13,7 +13,6 @@ public class FrogActions : MonoBehaviour
     //Frog Anim Sounds
     [SerializeField] private AudioSource tongueOutSound;
     [SerializeField] private AudioSource dizzySound;
-
     [SerializeField] private GameObject tongueObj;
     [SerializeField] private FroggoPlayer froggoPlayer;
     [SerializeField] private SpriteRenderer fogSr;
