@@ -650,8 +650,8 @@ MonoBehaviour:
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
-  m_BlendUpdateMethod: 1
+  m_UpdateMethod: 0
+  m_BlendUpdateMethod: 0
   m_DefaultBlend:
     m_Style: 1
     m_Time: 2
@@ -782,7 +782,7 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
+  m_LookAt: {fileID: 1941566951}
   m_Follow: {fileID: 1941566951}
   m_Lens:
     FieldOfView: 60
@@ -3599,6 +3599,8 @@ MonoBehaviour:
   spiderDmgSound: {fileID: 1386461369}
   bugPopSound: {fileID: 1386461368}
   fairyDustSound: {fileID: 1386461367}
+  vibrateTime: 100
+  vibrationAmplitude: 40
   maxTime: 60
   startingTimeVal: 30
   tb: {fileID: 891018971}

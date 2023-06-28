@@ -592,7 +592,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9911fd9aedc8d9046a3ebabe64bb0674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
   parallexEffect: 0
 --- !u!1 &1872085857
 GameObject:
@@ -693,7 +692,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9911fd9aedc8d9046a3ebabe64bb0674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
   parallexEffect: 1
 --- !u!1 &2034126519
 GameObject:
