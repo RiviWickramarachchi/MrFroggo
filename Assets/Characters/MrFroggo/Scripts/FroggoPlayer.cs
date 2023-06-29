@@ -61,6 +61,7 @@ public class FroggoPlayer : MonoBehaviour
     private int totalBugCoins;
     private float fogValue;
     private bool isMuted; //to mute/unmute game sound
+    private bool isStunCoroutineRunning;
     private IEnumerator froggoStunRoutine;
 
     //Public Variables
@@ -109,6 +110,7 @@ public class FroggoPlayer : MonoBehaviour
 
     IEnumerator FroggoStunEffect() {
         while(true) {
+            isStunCoroutineRunning = true;
             croakSound.Play();
             anim.Play("froggo_stun");
             yield return new WaitForSeconds(5f);
@@ -136,7 +138,7 @@ public class FroggoPlayer : MonoBehaviour
     }
 
     public int GetFrogEffect() {
-        if(frogEffects == FrogEffects.Normal) {
+        if(frogEffects == FrogEffects.Normal || frogEffects == FrogEffects.FireBugEffectStarted) {
             return 1;
         }
         else if (frogEffects == FrogEffects.BeeEffect) {
@@ -260,6 +262,7 @@ public class FroggoPlayer : MonoBehaviour
                 bugPopSound.Play();
                 if(collision.gameObject.GetComponent<FireBug>().Timer < collision.gameObject.GetComponent<FireBug>().ColorTime)
                 {
+                    Debug.Log("HIT FIREBUG PENALTY");
                     UpdateScore(fireBugPenalty);
                     frogEffects = FrogEffects.FireBugEffect;
                     UpdateBugGeneratorPlayer?.Invoke(4);
@@ -275,8 +278,9 @@ public class FroggoPlayer : MonoBehaviour
             {
                 fairyDustSound.Play();
                 anim.Play("froggo_fairyDust");
-                if(frogEffects == FrogEffects.FireBugEffectStarted) {
+                if(isStunCoroutineRunning) {
                     StopCoroutine(froggoStunRoutine);
+                    isStunCoroutineRunning = false;
                 }
                 frogEffects = FrogEffects.Normal;
                 UpdateBugGeneratorPlayer?.Invoke(6);

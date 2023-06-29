@@ -257,8 +257,10 @@ public class BugGenerator : Singleton<BugGenerator>
             switch(playerStates) {
                 case PlayerStates.PlayerStunned:
                     yield return new WaitForSeconds(5f);
+                    Debug.Log("waited before instantiating goldfish");
                     InstantiateGoldFish();
                     yield return new WaitForSeconds(8f);
+                    Debug.Log("waited before instantiating fairy");
                     InstantiateFairy();
                     break;
                 case PlayerStates.PlayerNerfed:

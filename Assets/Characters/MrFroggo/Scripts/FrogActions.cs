@@ -21,6 +21,7 @@ public class FrogActions : MonoBehaviour
     public static event Action<Collider2D> FrogCollision;
     private float fogAlphaVal;
     private float fogAlphaProgress = 0f;
+    private bool animIsPlaying;
 
     // Start is called before the first frame update
     void Start()
@@ -44,25 +45,28 @@ public class FrogActions : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
+                if(anim.GetCurrentAnimatorStateInfo(1).IsName("TongueIdle")) {
+                    anim.SetFloat("idleSpeed", 0f);
+                    Sprite sprite = sr.sprite;
+                    //print(sprite.name);
+                    string animSprite = sprite.name;
+                    if(froggoPlayer.GetFrogEffect() == 1) {
+                        tongueOutSound.Play();
+                        NormalTongueActions (animSprite);
+                    }
+                    else if(froggoPlayer.GetFrogEffect() == 2) {
+                        tongueOutSound.Play();
+                        BeeEffectTongueActions(animSprite);
+                    }
+                    else if(froggoPlayer.GetFrogEffect() == 3) {
+                        tongueOutSound.Play();
+                        LadyBugEffectTongueActions(animSprite);
+                    }
+                }
                 //float tongueZRot = UnityEditor.TransformUtils.GetInspectorRotation(frogPupilObj.transform).z;
                 //print("Set tongue value =" +tongueZRot);
                 //tongueObj.transform.Rotate(0f, 0f,tongueZRot);
-                anim.SetFloat("idleSpeed", 0f);
-                Sprite sprite = sr.sprite;
-                //print(sprite.name);
-                string animSprite = sprite.name;
-                if(froggoPlayer.GetFrogEffect() == 1) {
-                    tongueOutSound.Play();
-                    NormalTongueActions (animSprite);
-                }
-                else if(froggoPlayer.GetFrogEffect() == 2) {
-                    tongueOutSound.Play();
-                    BeeEffectTongueActions(animSprite);
-                }
-                else if(froggoPlayer.GetFrogEffect() == 3) {
-                    tongueOutSound.Play();
-                    LadyBugEffectTongueActions(animSprite);
-                }
+
             }
             if (touch.phase == TouchPhase.Ended)
             {
